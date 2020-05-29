@@ -6,7 +6,7 @@ $(document).ready(function() {
   const createMap = function() {
     // initial map load
     const options = {
-      center: { lat: 43.654, lng: -79.383},
+      center: { lat: 43.654, lng: -79.383 },
       zoom: 10,
       // disableDefaultUI: true --> this would remove all the in-map features e.g. zoom
       // draggable: false --> this would disable the ability to drag on the map
@@ -19,9 +19,9 @@ $(document).ready(function() {
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(p) {
-        let position = {
+        const position = {
           lat: p.coords.latitude,
-          lang: p.coords.longitude
+          long: p.coords.longitude
         };
 
         infoWindow.setPosition(position);
