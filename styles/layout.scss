@@ -5,28 +5,9 @@ body {
   background-color: #EEE;
   flex-direction: column;
 
-  nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 134;
-    width: 100%;
-    background-color:  #4056A1;
-    color: #FFFFFF;
-    box-sizing: border-box;
-    padding: 1.5em;
-
-    nav div button {
-      background-color:blue;
-      color: white;
-      border: 2px solid white;
-      border-radius: 6px;
+  .navbar {
+    list-style: none;
     }
-
-
-  }
-
-
 
   main {
     display: flex;
