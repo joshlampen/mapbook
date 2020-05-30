@@ -27,11 +27,18 @@
   <body>
 
     <!-- Navigation Bar -->
-    <nav class='navbar navbar-light bg-light'>
+    <nav class='navbar navbar-light'>
       <span class='navbar-brand'>MapBook</span>
       <form class="form-inline">
-        <button class="btn btn-sm btn-outline-primary mr-2" type="button">Create</button>
-        <button class="btn btn-sm btn-outline-primary" type="button">Drop Down</button>
+        <button class="btn btn-sm btn-success mr-2" type="button">Create</button>
+        <div class="dropdown">
+          <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Drop Down </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+        </div>
       </form>
     </nav>
 
