@@ -21,12 +21,12 @@ $(document).ready(function() {
       navigator.geolocation.getCurrentPosition(function(p) {
         const position = {
           lat: p.coords.latitude,
-          long: p.coords.longitude
+          lng: p.coords.longitude
         };
 
         infoWindow.setPosition(position);
         infoWindow.setContent('Your location!');
-        infoWindow.open(map);
+        infoWindow.open(map.setCenter(position));
 
       }, function() {
         handleLocationError('Geolocation service failed', map.center());
