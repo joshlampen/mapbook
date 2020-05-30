@@ -2,6 +2,8 @@ DROP TABLE IF EXISTS markers CASCADE;
 
 CREATE TABLE markers (
   id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255),
+  icon_url VARCHAR(255),
   latitude FLOAT NOT NULL,
   longitude FLOAT NOT NULL,
   map_id INTEGER REFERENCES maps(id) ON DELETE CASCADE,
