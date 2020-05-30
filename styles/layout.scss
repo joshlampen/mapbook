@@ -1,17 +1,49 @@
 // See: https://sass-lang.com/
 
 body {
+  display: flex;
   background-color: #EEE;
+  flex-direction: column;
+
+  .navbar {
+    list-style: none;
+    }
+
+  main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+  }
+
+  section.feed {
+    width: 20%;
+    height: 720px;
+    border: solid 2px black;
+
+  }
+
+  section.map_container {
+    width: 80%;
+    height: 700px;
+
+  }
 
   h1 {
     color: #244751;
   }
 
   #map {
-    height: 500px;
+    height: 100%;
   }
 
   #search {
     width: 100%;
   }
 }
+
+
+
+
+
