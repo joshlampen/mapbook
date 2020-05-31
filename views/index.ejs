@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <!-- App CSS -->
+    <link rel="stylesheet" href="/styles/new-map.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/enter-map-name.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
     <!-- External JS -->
@@ -18,6 +20,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?callback=createMap&libraries=places&key=AIzaSyAsuSWu46_T8VoB_LjWOpS9_vHgT7ymIfo" async defer></script>
 
     <!-- App JS -->
+    <script type="text/javascript" src="/scripts/submit-map-name.js"></script>
     <script type="text/javascript" src="/scripts/get-favorites.js"></script>
     <script type="text/javascript" src="/scripts/registered-users.js"></script>
     <script type="text/javascript" src="/scripts/download-marker-info.js"></script>
@@ -51,9 +54,16 @@
         <h1>Ugly Feed</h1>
       </section>
 
-    <section class='map_container'>
-    <input class="form-control" id="search" type="text" placeholder="Search" />
     <div id="map"></div>
+
+    <section id="enter-map-name">
+      <form id="new-map-name">
+        <textarea name="text" placeholder="Enter Map Name"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+    <section id="new-map">
+      <input class="form-control" id="search" type="text" placeholder="Search" />
     </section>
     </main>
 
@@ -88,6 +98,6 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> --> -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> -->
   </body>
 </html>

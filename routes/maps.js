@@ -9,7 +9,20 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-  router.get('/', (req, res) => {
+  router.post('/', (req, res) => {
+    const mapName = req.body.text;
+
+    const values = [mapName];
+
+    return db.query(`
+    INSERT INTO maps (name)
+    VALUES ($1)
+    RETURNING *;
+    `, values)
+      .then(res => console.log(res.rows));
+  })
+
+  router.get('/markers', (req, res) => {
     const query = `
     SELECT *
     FROM markers
@@ -29,7 +42,7 @@ module.exports = (db) => {
   });
 
   //Upon clicking a suggested address, save to db
-  router.post('/', (req, res) => {
+  router.post('/markers', (req, res) => {
     const name = req.body.name;
     const iconURL = req.body.iconURL
     const lat = Number(req.body.lat);
