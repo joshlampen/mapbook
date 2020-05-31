@@ -34,6 +34,7 @@ const enableSearch = function(searchBox, map) {
       markers.push(new google.maps.Marker({
         map: map,
         title: place.name,
+        address: place.formatted_address,
         position: place.geometry.location
       }));
 
@@ -44,6 +45,16 @@ const enableSearch = function(searchBox, map) {
         bounds.extend(place.geometry.location);
       }
     });
+
+    markers.forEach(function(marker) {
+      const text = `${marker.title} is located at ${marker.address}`
+      const infowindow = new google.maps.InfoWindow({
+        content: text
+      });
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      })
+    })
 
     map.fitBounds(bounds);
   });
