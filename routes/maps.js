@@ -26,8 +26,9 @@ module.exports = (db) => {
         .status(500)
         .json({ error: err.message });
     });
-    });
+  });
 
+  //Upon clicking a suggested address, save to db
   router.post('/', (req, res) => {
     const name = req.body.name;
     const iconURL = req.body.iconURL
@@ -35,7 +36,6 @@ module.exports = (db) => {
     const lng = Number(req.body.lng);
 
     const values = [name, iconURL, lat, lng]
-    console.log(values);
 
     return db.query(`
     INSERT INTO markers (name, icon_url, latitude, longitude)
@@ -48,3 +48,6 @@ module.exports = (db) => {
 
   return router;
 };
+
+
+
