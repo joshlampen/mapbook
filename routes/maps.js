@@ -9,21 +9,22 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-  // router.get("/", (req, res) => {
-  //   let query = `SELECT * FROM maps`;
-  //   console.log(query);
-  //   db.query(query)
-  //     .then(data => {
-  //       const maps = data.rows;
-  //       res.json({ maps });
-  //     })
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  // });
+  router.get("/", (req, res) => {
+    let query = `SELECT * FROM maps`;
 
+    return db.query(query)
+      .then(data => {
+        const maps = data.rows;
+        res.json({ maps });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+  //Upon clicking a suggested address, save to db
   router.post('/', (req, res) => {
     const name = req.body.name;
     const iconURL = req.body.iconURL
@@ -31,7 +32,6 @@ module.exports = (db) => {
     const lng = Number(req.body.lng);
 
     const values = [name, iconURL, lat, lng]
-    console.log(values);
 
     return db.query(`
     INSERT INTO markers (name, icon_url, latitude, longitude)
@@ -44,3 +44,6 @@ module.exports = (db) => {
 
   return router;
 };
+
+
+
