@@ -5,7 +5,7 @@ $(document).ready(function() {
   
   loadMap(); // load empty map
   loadMapsFeed(); // loads all maps in database to the feed
-  enableMarkerInfo(); // enables download of location data when a place is searched
+  enableMarkerAdding(); // enables download of location data when a place is searched
 
   $newMap.hide(); // hide the new map container initially
 

@@ -51,6 +51,7 @@ module.exports = (db) => {
           .status(500)
           .json({ error: err.message });
       });
+  })
 
   // router.get('/markers/', (req, res) => {
   //   const query = `
