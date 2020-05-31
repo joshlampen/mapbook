@@ -31,7 +31,6 @@ module.exports = (db) => {
       .then(res => res.rows);
   })
 
-
   router.get('/markers', (req, res) => {
     const mapID = Number(req.query.mapID);
     const values = [mapID]
@@ -52,7 +51,23 @@ module.exports = (db) => {
           .status(500)
           .json({ error: err.message });
       });
-  });
+
+  // router.get('/markers/', (req, res) => {
+  //   const query = `
+  //   SELECT *
+  //   FROM markers
+  //   `
+  //   // WHERE map_id = $1
+  //   return db.query(query)
+  //   //should send the values to the client side where I want to use helper functions
+  //   //And then dynamically add it as a script
+  //   .then(res => JSON.stringify(res.rows))
+  //   .catch(err => {
+  //     res
+  //       .status(500)
+  //       .json({ error: err.message });
+  //   });
+  // });
 
   //Upon clicking a suggested address, save to db
   router.post('/markers', (req, res) => {

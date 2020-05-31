@@ -5,12 +5,19 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
+
+ //Andrew's note - I designated this .js file as the login page route for now.
+
 const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
+
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
+
+    res.render('login') // Calls the login page.
+
+    db.query(`SELECT * FROM users;`)  // THis is leftover from the original version I pulled. It has not been implememented.
       .then(data => {
         const users = data.rows;
         res.json({ users });
@@ -22,6 +29,7 @@ module.exports = (db) => {
       });
   });
 
+  /*
   //Will need to expand on this once we can register users
   router.post("/users", (req, res) => {
     const name = req.name
@@ -34,9 +42,16 @@ module.exports = (db) => {
     return db.query(query, [name, email, password])
     .then(res => res.rows[0])
     .catch(err => console.error("Error", err.stack));
-  })
+  }) */
 
   //Create route to get user info
 
   return router;
 };
+
+
+/* Outstanding items to do:
+
+- Take login info from req.body and use a use query to call user info from the database.
+Return error if SELECT * FROM users WHERE email = x AND password = y doesn't match req.body data (inputted email and password)
+*/
