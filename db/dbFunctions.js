@@ -22,7 +22,7 @@ const toGeoJson = array => {
   return geoJson;
 };
 
-//Get markers and load to map
+//Get markers and load to map -- Incomplete, need to connect to db and append dynamically as a script
 const getMarkers = mapId => {
   const query = `
   SELECT latitude, longitude FROM markers
@@ -39,3 +39,30 @@ const getMarkers = mapId => {
       .json({ error: err.message });
   });
 };
+
+//Register users - Needs to connect to front-end and db like in lightBnb
+const addUser = user => {
+  const name = user.name;
+  const email = user.email;
+  const password = user.password;
+
+  const query = `
+  INSERT INTO users (name, email, password)
+  VALUES ($1, $2, $3)
+  `
+  return db.query(query, [name, email, password])
+  .then(res => res.rows[0])
+  .catch(err => console.error("Error", err.stack));
+}
+
+//Add favourites
+const favorite = (userId, mapId) => {
+  const query =`
+  INSERT INTO favorites (user_id, map_id)
+  VALUES ($1, $2)
+  `
+
+  return db.query(query, [userId, mapId])
+  .then()
+  .catch(err => console.error("Error", err.stack));
+}
