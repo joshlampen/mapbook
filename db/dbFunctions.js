@@ -41,7 +41,7 @@ const getMarkers = mapId => {
 };
 
 //Register users - Needs to connect to front-end and db like in lightBnb
-const addUser = user => {
+const addUser = (user, db) => {
   const name = user.name;
   const email = user.email;
   const password = user.password;
@@ -66,3 +66,5 @@ const favorite = (userId, mapId) => {
   .then()
   .catch(err => console.error("Error", err.stack));
 }
+
+module.exports = { addUser }
