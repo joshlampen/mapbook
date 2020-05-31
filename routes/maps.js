@@ -19,21 +19,19 @@ module.exports = (db) => {
     VALUES ($1)
     RETURNING *;
     `, values)
-      .then(res => console.log(res.rows));
+      .then(res => res.rows);
   })
 
-  router.get('/markers', (req, res) => {
+  router.get('/markers/', (req, res) => {
     const query = `
     SELECT *
     FROM markers
     `
     // WHERE map_id = $1
     return db.query(query)
-    .then(res => {
-      console.log(res.rows);
-      //Formats into geoJson, but this needs to be appended dynamically as a script
-      // map.data.addGeoJson(toGeoJson(data.rows))
-    })
+    //should send the values to the client side where I want to use helper functions
+    //And then dynamically add it as a script
+    .then(res => JSON.stringify(res.rows))
     .catch(err => {
       res
         .status(500)
