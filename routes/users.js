@@ -29,6 +29,23 @@ module.exports = (db) => {
       });
   });
 
+  /*
+  //Will need to expand on this once we can register users
+  router.post("/users", (req, res) => {
+    const name = req.name
+    const password = req.password
+    const email = req.email
+    const query = `
+    INSERT INTO users (name, email, password)
+    VALUES ($1, $2, $3)
+    `
+    return db.query(query, [name, email, password])
+    .then(res => res.rows[0])
+    .catch(err => console.error("Error", err.stack));
+  }) */
+
+  //Create route to get user info
+
   return router;
 };
 
