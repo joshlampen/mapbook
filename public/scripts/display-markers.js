@@ -59,12 +59,12 @@ const test = (x) => {
 }
 
 $(document).ready(function () {
-  $.get('/api/maps/markers', test)
-  console.log('hi')
-  google.maps.event.addDomListener(window, 'load', function() {
 
-
-
-
+  $.get('/api/maps/markers', function(data) {
+    alert("Got it")
   })
+
+
+
+
 })
