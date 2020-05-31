@@ -9,20 +9,24 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-  // router.get("/", (req, res) => {
-  //   let query = `SELECT * FROM maps`;
-  //   console.log(query);
-  //   db.query(query)
-  //     .then(data => {
-  //       const maps = data.rows;
-  //       res.json({ maps });
-  //     })
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  // });
+  router.get('/', (req, res) => {
+    const query = `
+    SELECT *
+    FROM markers
+    `
+    // WHERE map_id = $1
+    return db.query(query)
+    .then(res => {
+      console.log(res.rows);
+      //Formats into geoJson, but this needs to be appended dynamically as a script
+      // map.data.addGeoJson(toGeoJson(data.rows))
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+    });
 
   router.post('/', (req, res) => {
     const name = req.body.name;

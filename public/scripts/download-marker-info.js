@@ -16,9 +16,9 @@ $(document).ready(function() {
         lat,
         lng
       };
+
       $.post('/api/maps/', values);
-
-
+      $.get('/api/maps/');
     })
   })
 });
