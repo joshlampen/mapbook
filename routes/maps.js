@@ -9,6 +9,15 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
+  router.get('/', (req, res) => {
+    return db.query(`
+    SELECT *
+    FROM maps
+    ORDER BY date_created;
+    `)
+      .then(data => res.json(data));
+  })
+
   router.post('/', (req, res) => {
     const mapName = req.body.text;
 
@@ -19,8 +28,9 @@ module.exports = (db) => {
     VALUES ($1)
     RETURNING *;
     `, values)
-      .then(res => console.log(res.rows));
+      .then(res => res.rows);
   })
+
 
   router.get('/markers', (req, res) => {
     const query = `
@@ -43,20 +53,21 @@ module.exports = (db) => {
 
   //Upon clicking a suggested address, save to db
   router.post('/markers', (req, res) => {
-    const name = req.body.name;
+    const mapID = req.body.mapID;
+    const markerName = req.body.markerName;
     const iconURL = req.body.iconURL
     const lat = Number(req.body.lat);
     const lng = Number(req.body.lng);
 
-    const values = [name, iconURL, lat, lng]
+    const values = [mapID, markerName, iconURL, lat, lng]
 
     return db.query(`
-    INSERT INTO markers (name, icon_url, latitude, longitude)
-    VALUES ($1, $2, $3, $4)
+    INSERT INTO markers (map_id, name, icon_url, latitude, longitude)
+    VALUES ($1, $2, $3, $4, $5)
     RETURNING *;
     `, values)
       .then(res => console.log(res.rows))
-      .catch(e => console.log(e));
+      .catch(e => e);
   })
 
   //Get all the favorited maps - Works! Will need to modify once we have all the ids
@@ -83,6 +94,21 @@ module.exports = (db) => {
     return db.query(query, [userId, mapId])
     .then()
     .catch(err => console.error("Error", err.stack));
+  })
+
+  router.get('/:mapName', (req, res) => { // gets id based on name and user_id
+    const mapName = req.params.mapName;
+
+    const values = [mapName]
+
+    console.log('completing get request');
+
+    return db.query(`
+    SELECT *
+    FROM maps
+    WHERE name = $1
+    `, values)
+      .then(data => res.json(data));
   })
 
   return router;
