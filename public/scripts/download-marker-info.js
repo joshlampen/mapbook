@@ -1,11 +1,7 @@
 $(document).ready(function() {
 
-  //Get google maps info
-  $.get('/api/maps/', console.log)
-
   google.maps.event.addDomListener(window, 'load', function() {
     const autocomplete = new google.maps.places.Autocomplete(document.getElementById('search'));
-    console.log('works here')
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
       const place = autocomplete.getPlace();
 

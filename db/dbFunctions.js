@@ -66,3 +66,16 @@ const favorite = (userId, mapId) => {
   .then()
   .catch(err => console.error("Error", err.stack));
 }
+
+//getFavorites
+const getFavorites = (user_id) => {
+  const query = `
+  SELECT * FROM favorites
+  WHERE user_id = $1
+  `
+
+  return db.query(query, [user_id])
+  .then(res => console.log(res.rows))
+  .catch(err => console.log("Error", err.stack))
+
+}
