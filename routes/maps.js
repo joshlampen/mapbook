@@ -60,7 +60,7 @@ module.exports = (db) => {
 
   })
 
-  //Favorite a map -- connect this to the front-end in another jquery file
+  //Favorite a map -- Will develop this further once favorites functionality has been setup
   router.post('/favorites', (req, res) => {
     const query =`
     INSERT INTO favorites (user_id, map_id)
