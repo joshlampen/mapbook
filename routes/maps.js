@@ -33,22 +33,25 @@ module.exports = (db) => {
 
 
   router.get('/markers', (req, res) => {
-    const query = `
+    const mapID = Number(req.query.mapID);
+    const values = [mapID]
+
+    return db.query(`
     SELECT *
     FROM markers
-    `
-    // WHERE map_id = $1
-    return db.query(query)
-    .then(res => {
-      console.log(res.rows);
-      //Formats into geoJson, but this needs to be appended dynamically as a script
-      // map.data.addGeoJson(toGeoJson(data.rows))
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
+    WHERE map_id = $1
+    ORDER BY date_created DESC;
+    `, values)
+      .then(data => {
+        res.json(data.rows);
+        //Formats into geoJson, but this needs to be appended dynamically as a script
+        // map.data.addGeoJson(toGeoJson(data.rows))
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
   });
 
   //Upon clicking a suggested address, save to db
@@ -63,10 +66,9 @@ module.exports = (db) => {
 
     return db.query(`
     INSERT INTO markers (map_id, name, icon_url, latitude, longitude)
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING *;
+    VALUES ($1, $2, $3, $4, $5);
     `, values)
-      .then(res => console.log(res.rows))
+      .then(res => res.rows)
       .catch(e => e);
   })
 
@@ -101,14 +103,12 @@ module.exports = (db) => {
 
     const values = [mapName]
 
-    console.log('completing get request');
-
     return db.query(`
     SELECT *
     FROM maps
     WHERE name = $1
     `, values)
-      .then(data => res.json(data));
+      .then(data => res.json(data.rows));
   })
 
   return router;

@@ -7,7 +7,7 @@ const enableMarkerInfo = function() {
 
       $.get(`/api/maps/${mapName}`)
         .done(res => {
-          const mapID = res.rows[0].id;
+          const mapID = res[0].id;
           const place = autocomplete.getPlace();
 
           const markerName = place.name;
@@ -23,8 +23,9 @@ const enableMarkerInfo = function() {
             lng
           };
 
-          $.post('/api/maps/markers', values);
-          $.get('/api/maps/markers');
+          $.post('/api/maps/markers', values)
+          $.get('/api/maps/markers', { mapID })
+            .done(res => addMarker(res[0]));
         })
     })
   })
