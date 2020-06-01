@@ -1,11 +1,67 @@
+@import 'variables';
+
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: cornflowerblue;
+  height: 60px;
+  background-color: $purple;
+  color: white;
   padding: 0px 20px 0px 20px;
 }
 
+nav span {
+  font-family: $logo-font;
+  font-size: 30px;
+}
+
 .nav-buttons {
-  list-style: none;
+  display: flex;
+  height: 100%;
+  font-family: $button-font;
+}
+
+.nav-buttons a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100%;
+  text-align: center;
+  color: white;
+}
+
+.nav-buttons a:hover {
+  background-color: $purple-hover;
+}
+
+#dropdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  width: 200px;
+  background-color: $background-white;
+  border: 2px solid $purple;
+  margin: 0px;
+}
+
+#dropdown li {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+}
+
+#dropdown li:hover {
+  background-color: grey;
+}
+
+#dropdown a {
+  width: 100%;
+  color: black;
+  text-align: center;
 }

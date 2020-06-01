@@ -8,6 +8,8 @@
     <!-- External CSS -->
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
 
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/new-map.css" type="text/css" />
@@ -39,12 +41,12 @@
     <nav>
       <span>MapBook</span>
       <ul class="nav-buttons">
-        <li><button id="create">Create</button></li>
+        <li><a href="" id="create">Create</a></li>
+        <li><a href="" id="profile">Profile</a></li>
       </ul>
     </nav>
 
     <!-- Main Container for feed, and map-->
-
     <main>
       <section id='maps-feed'>
         <h1>Ugly Feed</h1>
@@ -52,6 +54,12 @@
       </section>
 
       <div id="map"></div>
+
+      <ul id="dropdown">
+        <li><a href="">Favorites</a></li>
+        <li><a href="">Contributions</a></li>
+        <li><a href="">Logout</a></li>
+      </ul>
 
       <section id="enter-map-name">
         <form id="new-map-name">

@@ -5,19 +5,19 @@ module.exports = (db) => {
   router.get('/', (req, res) => {
     const mapID = req.query.mapID;
     const userID = req.session.user_id;
+    console.log(userID);
 
     const values = [mapID, userID]
 
     return db.query(`
     SELECT *
     FROM markers
-    WHERE map_id = $1 AND user_id = $2
+    WHERE map_id = $1
+    AND user_id = $2
     ORDER BY date_created DESC;
     `, values)
       .then(data => {
         res.json(data.rows);
-        //Formats into geoJson, but this needs to be appended dynamically as a script
-        // map.data.addGeoJson(toGeoJson(data.rows))
       })
       .catch(err => {
         res
@@ -34,6 +34,7 @@ module.exports = (db) => {
     const lat = req.body.lat;
     const lng = req.body.lng;
     const userID = req.session.user_id;
+    console.log(userID);
 
     const values = [mapID, markerName, iconURL, lat, lng, userID];
 
@@ -50,13 +51,15 @@ module.exports = (db) => {
     const markerID = req.body.markerID;
     const mapID = req.body.mapID;
     const userID = req.session.user_id;
+    console.log(userID);
 
     const values = [markerID, mapID, userID];
 
     return db.query(`
     DELETE FROM markers
     WHERE id = $1
-    AND map_id = $2 AND user_id = $3;
+    AND map_id = $2
+    AND user_id = $3;
     `, values)
   })
 

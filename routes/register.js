@@ -13,25 +13,24 @@ router.get('/', (req, res) => {
 
 router.post("/" , (req,res) => {
 
-  // Here I want to verify if the user is already in the db, currently stuck
-  findUser(req.body, db)
-  .then(res => {
-    res.send('Already taken');
-    return;
-  })
+  // // Here I want to verify if the user is already in the db, currently stuck
+  // findUser(req.body, db)
+  // .then(res => {
+  //   res.send('Already taken');
+  //   return;
+  // })
 
   addUser(req.body, db)
   //Here to the end of the function was taken from LightBnB
-  .then(user => {
-    if (!user) {
-      res.send({error: "error"});
-      return;
-    }
-    req.session.userId = user.id;
-    res.send("🤗");
-  })
-  .catch(e => res.send(e));
-  res.redirect('/')
+    .then(user => {
+      if (!user) {
+        res.send({error: "error"});
+        return;
+      }
+      req.session.user_id = user.id;
+      res.redirect('/')
+    })
+    // .catch(e => res.send(e));
   })
 
   return router;

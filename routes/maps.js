@@ -22,6 +22,7 @@ module.exports = (db) => {
   router.post('/', (req, res) => {
     const mapName = req.body.text;
     const userID = req.session.user_id
+    console.log(userID);
 
     const values = [mapName, userID];
 
@@ -36,25 +37,32 @@ module.exports = (db) => {
   router.post('/delete', (req, res) => {
     const mapID = req.body.mapID;
     const userID = req.session.user_id;
+    console.log(userID);
 
     const values = [mapID, userID];
 
     return db.query(`
     DELETE FROM maps
     WHERE id = $1 AND user_id = $2;
+<<<<<<< HEAD
     `, values)
+=======
+        `, values)
+>>>>>>> origin
   })
 
   router.get('/:mapName', (req, res) => { // gets id based on name and user_id
     const mapName = req.params.mapName;
     const userID = req.session.user_id;
+    console.log(userID);
 
     const values = [mapName, userID]
 
     return db.query(`
     SELECT *
     FROM maps
-    WHERE name = $1 AND user_id = $2;
+    WHERE name = $1
+    AND user_id = $2;
     `, values)
       .then(data => res.json(data.rows));
   })
