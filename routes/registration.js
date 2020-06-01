@@ -5,8 +5,8 @@ const { addUser } = require('../db/dbFunctions')
 
 module.exports = (db) => {
 
-router.get('registration', (req, res) => {
-    res.render('/registration');
+router.get('/registration', (req, res) => {
+    res.render('registration');
   })
 
 router.post("/" , (req,res) => {
