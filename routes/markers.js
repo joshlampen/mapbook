@@ -5,7 +5,6 @@ module.exports = (db) => {
   router.get('/', (req, res) => {
     const mapID = req.query.mapID;
     const userID = req.session.user_id;
-    console.log(userID);
 
     const values = [mapID, userID]
 
@@ -14,8 +13,9 @@ module.exports = (db) => {
     FROM markers
     WHERE map_id = $1
     AND user_id = $2
-    ORDER BY date_created DESC;
-    `, values)
+    ORDER BY date_created DESC
+    `
+    , values)
       .then(data => {
         res.json(data.rows);
       })
