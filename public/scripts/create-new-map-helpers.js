@@ -1,8 +1,5 @@
-const createNewMap = function(form, newMapContainer, newMapHeader) {
-  event.preventDefault();
-  form.fadeOut();
-
-  const entry = form.serialize();
+const createNewMap = function(enterNameForm, newMapContainer, newMapHeader) {
+  const entry = enterNameForm.serialize();
 
   $.post('/api/maps/', entry)
     .done(res => {
@@ -55,5 +52,18 @@ const submitMap = function(newMapContainer) {
     .done(res => {
       const map = res[0];
       addMap(map);
+    })
+}
+
+const cancelMap = function(newMapContainer) {
+  event.preventDefault();
+  newMapContainer.fadeOut();
+
+  const mapName = getMapName();
+
+  $.get(`/api/maps/${mapName}`)
+    .done(res => {
+      const mapID = res[0].id
+      $.post('/api/maps/delete', { mapID })
     })
 }

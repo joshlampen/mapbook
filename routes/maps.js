@@ -31,6 +31,17 @@ module.exports = (db) => {
       .then(data => res.json(data.rows));
   })
 
+  router.post('/delete', (req, res) => {
+    const mapID = req.body.mapID;
+
+    const values = [mapID];
+
+    return db.query(`
+    DELETE FROM maps
+    WHERE id = $1;
+    `, values)
+  })
+
   router.get('/:mapName', (req, res) => { // gets id based on name and user_id
     const mapName = req.params.mapName;
 
