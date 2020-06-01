@@ -1,8 +1,6 @@
 const loadMapsFeed = function() {
   $.get('/api/maps/')
-    .done(res => {
-      res.forEach(map => addMap(map));
-    })
+    .done(maps => maps.forEach(map => addMap(map)));
 }
 
 const addMap = function(map) {
@@ -14,4 +12,5 @@ const addMap = function(map) {
   `;
 
   $('#maps-container').prepend(html);
+  $(`#map-${map.id}`).trigger('click');
 }
