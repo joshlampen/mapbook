@@ -10,6 +10,8 @@ const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
 const bcrypt     = require('bcrypt')
+const cookieSession = require('cookie-session')
+
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -31,6 +33,10 @@ app.use("/styles", sass({
   outputStyle: 'expanded'
 }));
 app.use(express.static("public"));
+app.use(cookieSession({
+  name: 'session',
+  keys: ['f77888e3-fad9-4e89-b8b7-1cff127f37aa', 'e6337385-acd1-43b5-aa6a-73090c8ce23f']
+}));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
