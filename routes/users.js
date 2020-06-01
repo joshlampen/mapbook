@@ -28,8 +28,11 @@ module.exports = (db) => {
       res.redirect('/api/users')
 
       return db.query(loginQuery, [email]).then((res) => {
-        console.log(res.rows)
-         // Calls the login page.
+        if (!res.rows) {
+          return null
+        } else {
+          res.rows
+        }
       })
 
       })
