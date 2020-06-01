@@ -21,12 +21,13 @@ module.exports = (db) => {
 
   router.post('/', (req, res) => {
     const mapName = req.body.text;
+    const userID = req.session.user_id
 
-    const values = [mapName];
+    const values = [mapName, userID];
 
     return db.query(`
-    INSERT INTO maps (name)
-    VALUES ($1)
+    INSERT INTO maps (name, user_id)
+    VALUES ($1, $2)
     RETURNING *;
     `, values)
       .then(data => res.json(data.rows));
@@ -34,24 +35,26 @@ module.exports = (db) => {
 
   router.post('/delete', (req, res) => {
     const mapID = req.body.mapID;
+    const userID = req.session.user_id;
 
-    const values = [mapID];
+    const values = [mapID, userID];
 
     return db.query(`
     DELETE FROM maps
-    WHERE id = $1;
+    WHERE id = $1 AND user_id = $2;
     `, values)
   })
 
   router.get('/:mapName', (req, res) => { // gets id based on name and user_id
     const mapName = req.params.mapName;
+    const userID = req.session.user_id;
 
-    const values = [mapName]
+    const values = [mapName, userID]
 
     return db.query(`
     SELECT *
     FROM maps
-    WHERE name = $1
+    WHERE name = $1 AND user_id = $2;
     `, values)
       .then(data => res.json(data.rows));
   })

@@ -4,12 +4,14 @@ const router  = express.Router();
 module.exports = (db) => {
   router.get('/', (req, res) => {
     const mapID = req.query.mapID;
-    const values = [mapID]
+    const userID = req.session.user_id;
+
+    const values = [mapID, userID]
 
     return db.query(`
     SELECT *
     FROM markers
-    WHERE map_id = $1
+    WHERE map_id = $1 AND user_id = $2
     ORDER BY date_created DESC;
     `, values)
       .then(data => {
@@ -31,12 +33,13 @@ module.exports = (db) => {
     const iconURL = req.body.iconURL;
     const lat = req.body.lat;
     const lng = req.body.lng;
+    const userID = req.session.user_id;
 
-    const values = [mapID, markerName, iconURL, lat, lng];
+    const values = [mapID, markerName, iconURL, lat, lng, userID];
 
     return db.query(`
-    INSERT INTO markers (map_id, name, icon_url, latitude, longitude)
-    VALUES ($1, $2, $3, $4, $5)
+    INSERT INTO markers (map_id, name, icon_url, latitude, longitude, user_id)
+    VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *;
     `, values)
       .then(data => res.json(data.rows))
@@ -46,13 +49,14 @@ module.exports = (db) => {
   router.post('/delete', (req, res) => {
     const markerID = req.body.markerID;
     const mapID = req.body.mapID;
+    const userID = req.session.user_id;
 
-    const values = [markerID, mapID];
+    const values = [markerID, mapID, userID];
 
     return db.query(`
     DELETE FROM markers
     WHERE id = $1
-    AND map_id = $2;
+    AND map_id = $2 AND user_id = $3;
     `, values)
   })
 
