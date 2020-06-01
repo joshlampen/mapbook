@@ -2,8 +2,8 @@
 
 const express = require('express');
 const router  = express.Router();
-const { addUser } = require('../db/dbFunctions')
-//const cookieSession = require('cookie-session')
+const { addUser, findUser, } = require('../db/dbFunctions')
+const cookieSession = require('cookie-session')
 
 module.exports = (db) => {
 
@@ -13,6 +13,13 @@ router.get('/', (req, res) => {
 
 router.post("/" , (req,res) => {
 
+  // Here I want to verify if the user is already in the db, currently stuck
+  findUser(req.body, db)
+  .then(res => {
+    res.send('Already taken');
+    return;
+  })
+
   addUser(req.body, db)
   //Here to the end of the function was taken from LightBnB
   .then(user => {
@@ -20,7 +27,7 @@ router.post("/" , (req,res) => {
       res.send({error: "error"});
       return;
     }
-    req.session.userId = console.log(user.id);
+    req.session.userId = user.id;
     res.send("🤗");
   })
   .catch(e => res.send(e));

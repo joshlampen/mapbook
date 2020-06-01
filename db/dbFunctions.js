@@ -42,17 +42,29 @@ const getMarkers = mapId => {
   });
 };
 
-//Register users - Needs to connect to front-end and db like in lightBnb
+//Fetch user info
+const findUser = (user, db) => {
+  const name = user.name //assuming that a user can have only one unique username
+  const query = `
+  SELECT * FROM users
+  WHERE user.name = $1
+  `
+
+  return db.query(query, [name])
+  .then(res => res.rows[0])
+  .catch(err => console.error("User does not exist", err.stack));
+}
+
 const addUser = (user, db) => {
   const name = user.name;
   const email = user.email;
   const password = bcrypt.hashSync(user.password, 10);
-
   const query = `
   INSERT INTO users (name, email, password)
   VALUES ($1, $2, $3)
   RETURNING *
   `
+
   return db.query(query, [name, email, password])
   .then(res => res.rows[0])
   .catch(err => console.error("Error", err.stack));
@@ -84,4 +96,4 @@ const getFavorites = (user_id) => {
 
 }
 
-module.exports = { addUser }
+module.exports = { addUser, findUser }
