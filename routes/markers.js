@@ -11,7 +11,8 @@ module.exports = (db) => {
     return db.query(`
     SELECT *
     FROM markers
-    WHERE map_id = $1 AND user_id = $2
+    WHERE map_id = $1
+    AND user_id = $2
     ORDER BY date_created DESC;
     `, values)
       .then(data => {
@@ -56,7 +57,8 @@ module.exports = (db) => {
     return db.query(`
     DELETE FROM markers
     WHERE id = $1
-    AND map_id = $2 AND user_id = $3;
+    AND map_id = $2
+    AND user_id = $3;
     `, values)
   })
 

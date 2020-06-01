@@ -42,9 +42,10 @@ const enableMarkerRemoval = function(markerID, mapID) {
   })
 }
 
-const submitMap = function(newMapContainer) {
+const submitMap = function(newMapContainer, markerContainer) {
   event.preventDefault();
   newMapContainer.fadeOut();
+  markerContainer.empty();
 
   const mapName = getMapName();
 

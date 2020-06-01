@@ -41,60 +41,11 @@ module.exports = (db) => {
 
     return db.query(`
     DELETE FROM maps
-<<<<<<< HEAD
-    WHERE id = $1;
+    WHERE id = $1
+    AND user_id = $2;
     `, values)
       .then(data => res.json(data.rows))
       .catch(e => e);
-  })
-
-  router.post('/markers/delete', (req, res) => {
-    const markerID = req.body.markerID;
-    const mapID = req.body.mapID;
-
-    const values = [markerID, mapID];
-
-    return db.query(`
-    DELETE FROM markers
-    WHERE id = $1
-    AND map_id = $2;
-    `, values)
-  })
-
-  //Get all the favorited maps - Works! Will need to modify once we have all the ids
-  router.get('/favorites', (req, res) => {
-    const userId = req.session.user_id
-    const query = `
-    SELECT * FROM favorites
-    WHERE user_id = $1
-    `
-    return db.query(query, [userId])
-    .then(res => {
-      console.log(res)
-    })
-    .catch(err => console.log("Error", err.stack))
-
-  })
-
-  //Favorite a map -- Will develop this further once favorites functionality has been setup
-  router.post('/favorites', (req, res) => {
-    const userId = req.session.user_id
-    const query =`
-    INSERT INTO favorites (user_id, map_id)
-    VALUES ($1, $2)
-    `
-
-    return db.query(query, [userId, mapId])
-    .then()
-    .catch(err => console.error("Error", err.stack));
-=======
-<<<<<<< HEAD
-    WHERE id = $1 AND user_id = $2;
-=======
-    WHERE id = $1;
->>>>>>> origin
-    `, values)
->>>>>>> 476b4803c20659f6ff517cf6b05b69b0a3b617fe
   })
 
   router.get('/:mapName', (req, res) => { // gets id based on name and user_id
@@ -106,7 +57,8 @@ module.exports = (db) => {
     return db.query(`
     SELECT *
     FROM maps
-    WHERE name = $1 AND user_id = $2;
+    WHERE name = $1
+    AND user_id = $2;
     `, values)
       .then(data => res.json(data.rows));
   })
