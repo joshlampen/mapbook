@@ -79,3 +79,5 @@ const getFavorites = (user_id) => {
   .catch(err => console.log("Error", err.stack))
 
 }
+
+module.exports = { addUser }
