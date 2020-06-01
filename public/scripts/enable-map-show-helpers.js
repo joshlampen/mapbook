@@ -10,7 +10,7 @@ const enableMapShow = function() {
 const showMap = function(mapID) {
   cancelMap($('#new-map'));
   $('#marker-container').empty();
-  
+
   $.get('api/markers/', { mapID })
     .done(markers => {
       displayMarkers(markers);
@@ -29,17 +29,44 @@ const displayMarkers = (markers) => {
   const locations = [];
 
   markers.forEach(marker => {
-    locations.push(new google.maps.Marker({
-      //Here we put in any details we want. We can insert that info into an infoWindow such that when we click the icon, the infow window shows
-      //Insert the image here
-      map: map,
-      title: marker.name,
-      position: {lat: marker.latitude, lng: marker.longitude}
-    }));
-  });
+
+    const service = new google.maps.places.PlacesService(map);
+
+    const request = {
+      query: marker.name,
+      fields: ['formatted_address']
+    }
+
+    service.findPlaceFromQuery(request, function(results, status) {
+
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+
+        const googleMarker = new google.maps.Marker({
+          map: map,
+          title: marker.name,
+          address: results[0].formatted_address,
+          position: {lat: marker.latitude, lng: marker.longitude},
+          icon: marker.icon_url
+        });
+        //Event listener for the infowindow
+        const text =
+        `name: ${googleMarker.title}
+        address: ${googleMarker.address}
+        ${googleMarker.icon}
+        `
+        const infoWindow = new google.maps.InfoWindow({
+          content: text
+        });
+
+        infoWindow.open(map, googleMarker);
+        locations.push(googleMarker);
+        bounds.extend(googleMarker.position);
+      };
+    })
+  })
 
   //Centers the map such that we can see all the markers
-  locations.forEach(marker => bounds.extend(marker.position));
+  //locations.forEach(marker => bounds.extend(marker.position));
 
   map.fitBounds(bounds);
 }

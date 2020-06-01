@@ -17,8 +17,6 @@ module.exports = (db) => {
     `, values)
       .then(data => {
         res.json(data.rows);
-        //Formats into geoJson, but this needs to be appended dynamically as a script
-        // map.data.addGeoJson(toGeoJson(data.rows))
       })
       .catch(err => {
         res
