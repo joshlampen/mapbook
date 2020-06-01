@@ -17,15 +17,19 @@
 
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?callback=createMap&libraries=places&key=AIzaSyAsuSWu46_T8VoB_LjWOpS9_vHgT7ymIfo" async defer></script>
+    <script src="https://kit.fontawesome.com/bf5bfaeaa4.js" crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=loadMap&libraries=places&key=AIzaSyAsuSWu46_T8VoB_LjWOpS9_vHgT7ymIfo" async defer></script>
 
     <!-- App JS -->
-    <script type="text/javascript" src="/scripts/submit-map-name.js"></script>
-    <script type="text/javascript" src="/scripts/get-favorites.js"></script>
-    <script type="text/javascript" src="/scripts/registered-users.js"></script>
-    <script type="text/javascript" src="/scripts/download-marker-info.js"></script>
+    <script type="text/javascript" src="/scripts/error-helpers.js"></script>
     <script type="text/javascript" src="/scripts/enable-search.js"></script>
     <script type="text/javascript" src="/scripts/load-map.js"></script>
+    <script type="text/javascript" src="/scripts/load-maps-feed.js"></script>
+    <script type="text/javascript" src="/scripts/get-favorites.js"></script>
+    <script type="text/javascript" src="/scripts/registered-users.js"></script>
+    <script type="text/javascript" src="/scripts/create-new-map-helpers.js"></script>
+    <script type="text/javascript" src="/scripts/enable-marker-adding.js"></script>
+    <script type="text/javascript" src="/scripts/display-markers.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
@@ -59,11 +63,13 @@
     <section id="enter-map-name">
       <form id="new-map-name">
         <textarea name="text" placeholder="Enter Map Name"></textarea>
-        <button type="submit">Submit</button>
+        <button type="submit" id="submit-map-name-button">Submit</button>
       </form>
     </section>
     <section id="new-map">
+      <h2></h2>
       <input class="form-control" id="search" type="text" placeholder="Search" />
+      <div id="marker-container"></div>
     </section>
     </main>
 
