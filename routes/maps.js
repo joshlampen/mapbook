@@ -31,82 +31,15 @@ module.exports = (db) => {
       .then(data => res.json(data.rows));
   })
 
-  router.get('/markers', (req, res) => {
-    const mapID = req.query.mapID;
-    const values = [mapID]
-
-    return db.query(`
-    SELECT *
-    FROM markers
-    WHERE map_id = $1`
-    //ORDER BY date_created DESC; date_created isn't defined. Will need to ask if this is needed
-    , values)
-      .then(data => {
-        res.json(data.rows);
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  })
-
-  //Upon clicking a suggested address, save to db
-  router.post('/markers', (req, res) => {
-    const mapID = req.body.mapID;
-    const markerName = req.body.markerName;
-    const iconURL = req.body.iconURL;
-    const lat = req.body.lat;
-    const lng = req.body.lng;
-
-    const values = [mapID, markerName, iconURL, lat, lng];
-
-    return db.query(`
-    INSERT INTO markers (map_id, name, icon_url, latitude, longitude)
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING *;
-    `, values)
-      .then(data => res.json(data.rows))
-      .catch(e => e);
-  })
-
-  router.post('/markers/delete', (req, res) => {
-    const markerID = req.body.markerID;
+  router.post('/delete', (req, res) => {
     const mapID = req.body.mapID;
 
-    const values = [markerID, mapID];
+    const values = [mapID];
 
     return db.query(`
-    DELETE FROM markers
-    WHERE id = $1
-    AND map_id = $2;
+    DELETE FROM maps
+    WHERE id = $1;
     `, values)
-  })
-
-  //Get all the favorited maps - Works! Will need to modify once we have all the ids
-  router.get('/favorites', (req, res) => {
-    const query = `
-    SELECT * FROM favorites
-    `
-    //WHERE user_id = $1
-    return db.query(query)
-    .then(res => {
-      console.log(res.rows)
-    })
-    .catch(err => console.log("Error", err.stack))
-
-  })
-
-  //Favorite a map -- Will develop this further once favorites functionality has been setup
-  router.post('/favorites', (req, res) => {
-    const query =`
-    INSERT INTO favorites (user_id, map_id)
-    VALUES ($1, $2)
-    `
-
-    return db.query(query, [userId, mapId])
-    .then()
-    .catch(err => console.error("Error", err.stack));
   })
 
   router.get('/:mapName', (req, res) => { // gets id based on name and user_id
