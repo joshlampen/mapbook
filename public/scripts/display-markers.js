@@ -61,7 +61,7 @@ const test = (x) => {
 $(document).ready(function () {
 
   $.get('/api/maps/markers', function(data) {
-    alert("Got it")
+    // alert("Got it")
   })
 
 

@@ -24,8 +24,15 @@ const enableMarkerAdding = function() {
           };
 
           $.post('/api/maps/markers', values)
-          $.get('/api/maps/markers', { mapID })
-            .done(res => addMarker(res[0]));
+            .done(() => {
+              $.get('/api/maps/markers', { mapID })
+                .done(res => {
+                  const marker = res[0];
+
+                  addMarker(marker);
+                  enableMarkerRemoval(marker.id, marker.map_id);
+                });
+            })
         })
     })
   })
