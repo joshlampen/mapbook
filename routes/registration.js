@@ -10,7 +10,6 @@ router.get('/', (req, res) => {
 
 router.post("/" , (req,res) => {
 
-
   addUser(req.body, db)
   res.render('registration') // 'Registration' was used as a test page but it should render homepage after
   })
