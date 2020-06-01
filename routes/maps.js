@@ -93,6 +93,13 @@ module.exports = (db) => {
     .catch(err => console.error("Error", err.stack));
   })
 
+    WHERE id = $1
+    AND user_id = $2;
+    `, values)
+      .then(data => res.json(data.rows))
+      .catch(e => e);
+  })
+
   router.get('/:mapName', (req, res) => { // gets id based on name and user_id
     const mapName = req.params.mapName;
     const userID = req.session.user_id;
@@ -102,7 +109,8 @@ module.exports = (db) => {
     return db.query(`
     SELECT *
     FROM maps
-    WHERE name = $1 AND user_id = $2;
+    WHERE name = $1
+    AND user_id = $2;
     `, values)
       .then(data => res.json(data.rows));
   })

@@ -8,6 +8,7 @@ $(document).ready(function() {
 
   const $newMapContainer = $('#new-map'); // container that appears following map name submission
   const $newMapHeader = $newMapContainer.find('h2'); // dynamic header of container based on map name submission
+  const $markerContainer = $newMapContainer.find('#marker-container');
   const $submitMapButton = $newMapContainer.find('#submit-map-button');
   const $cancelSubmit = $newMapContainer.find('#cancel-create');
 
@@ -20,6 +21,15 @@ $(document).ready(function() {
 
   $enterNameDiv.hide();
   $newMapContainer.hide(); // hide the new map container initially
+  $('#dropdown').hide();
+
+  $('#profile').click(function() {
+    if ($('#dropdown').is(':hidden')) {
+      $('#dropdown').slideDown()
+    } else {
+      $('#dropdown').slideUp();
+    }
+  })
 
   $createButton.click(function() {
     event.preventDefault();
@@ -49,7 +59,7 @@ $(document).ready(function() {
   })
 
   $submitMapButton.click(function() {
-    submitMap($newMapContainer);
+    submitMap($newMapContainer, $markerContainer);
   })
 
   $cancelSubmit.click(function() {

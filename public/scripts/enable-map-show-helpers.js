@@ -1,19 +1,20 @@
 const enableMapShow = function() {
-  console.log('inside enableMapShow function')
   google.maps.event.addDomListener(window, 'load', function() {
-    console.log('inside google maps event listener')
     $('#maps-container').on( 'click', '.map', function () {
       const mapID = $(this).attr('id').slice(4);
-      console.log(mapID);
       showMap(mapID);
     });
   })
 };
 
 const showMap = function(mapID) {
-  console.log('inside showMap function')
+  cancelMap($('#new-map'));
+  $('#marker-container').empty();
+  
   $.get('api/markers/', { mapID })
-    .done(markers => displayMarkers(markers))
+    .done(markers => {
+      displayMarkers(markers);
+    })
 }
 
 const displayMarkers = (markers) => {
