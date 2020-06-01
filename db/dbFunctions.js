@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 //db functions
 
 //Helper function - Take the array of lat and long values and convert to geoJson
@@ -44,16 +46,18 @@ const getMarkers = mapId => {
 const addUser = (user, db) => {
   const name = user.name;
   const email = user.email;
-  const password = user.password;
+  const password = bcrypt.hashSync(user.password, 10);
 
   const query = `
   INSERT INTO users (name, email, password)
   VALUES ($1, $2, $3)
+  SELECT *
   `
   return db.query(query, [name, email, password])
   .then(res => res.rows[0])
   .catch(err => console.error("Error", err.stack));
 }
+
 
 //Add favourites
 const favorite = (userId, mapId) => {

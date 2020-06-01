@@ -3,6 +3,20 @@
  /* Helper Functions */
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Issues: trying to append a new element into the head of the file as a script
 //The method im trying to use is google.maps.addGeoJson
 //The way im doing it is not appending to the head
@@ -59,12 +73,11 @@ const test = (x) => {
 }
 
 $(document).ready(function () {
+  google.maps.event.addDomListener(window, 'load', function() {
 
-  $.get('/api/maps/markers', function(data) {
-    // alert("Got it")
+    const marker = new google.Maps.Markers({
+      position:
+    })
+
   })
-
-
-
-
 })
