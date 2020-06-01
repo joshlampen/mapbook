@@ -15,7 +15,7 @@ module.exports = (db) => {
     FROM maps
     ORDER BY date_created;
     `)
-      .then(data => res.json(data));
+      .then(data => res.json(data.rows));
   })
 
   router.post('/', (req, res) => {
@@ -28,11 +28,11 @@ module.exports = (db) => {
     VALUES ($1)
     RETURNING *;
     `, values)
-      .then(res => res.rows);
+      .then(data => res.json(data.rows));
   })
 
   router.get('/markers', (req, res) => {
-    const mapID = Number(req.query.mapID);
+    const mapID = req.query.mapID;
     const values = [mapID]
 
     return db.query(`
@@ -74,18 +74,32 @@ module.exports = (db) => {
   router.post('/markers', (req, res) => {
     const mapID = req.body.mapID;
     const markerName = req.body.markerName;
-    const iconURL = req.body.iconURL
-    const lat = Number(req.body.lat);
-    const lng = Number(req.body.lng);
+    const iconURL = req.body.iconURL;
+    const lat = req.body.lat;
+    const lng = req.body.lng;
 
-    const values = [mapID, markerName, iconURL, lat, lng]
+    const values = [mapID, markerName, iconURL, lat, lng];
 
     return db.query(`
     INSERT INTO markers (map_id, name, icon_url, latitude, longitude)
-    VALUES ($1, $2, $3, $4, $5);
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *;
     `, values)
-      .then(res => res.rows)
+      .then(data => res.json(data.rows))
       .catch(e => e);
+  })
+
+  router.post('/markers/delete', (req, res) => {
+    const markerID = req.body.markerID;
+    const mapID = req.body.mapID;
+
+    const values = [markerID, mapID];
+
+    return db.query(`
+    DELETE FROM markers
+    WHERE id = $1
+    AND map_id = $2;
+    `, values)
   })
 
   //Get all the favorited maps - Works! Will need to modify once we have all the ids

@@ -1,15 +1,15 @@
-const createNewMap = function(form, newMap, newMapHeader) {
+const createNewMap = function(form, newMapContainer, newMapHeader) {
   event.preventDefault();
-
-  const entry = form.serialize();
-  const mapName = entry.slice(5);
-
-  $.post('/api/maps/', entry)
-
   form.fadeOut();
 
-  newMapHeader.html(mapName);
-  newMap.fadeIn();
+  const entry = form.serialize();
+
+  $.post('/api/maps/', entry)
+    .done(res => {
+      const mapName = res[0].name
+      newMapHeader.html(mapName);
+      newMapContainer.fadeIn();
+    })
 };
 
 const getMapName = function() {
@@ -18,13 +18,42 @@ const getMapName = function() {
 
 const addMarker = function(marker) {
   const html = `
-  <div class="marker"">
+  <div class="marker" id="marker-${marker.id}">
     <img src=${marker.icon_url}>
     <p>${marker.name}</p>
-    <i class="fas fa-trash-alt remove-marker"></i>
+    <button id="remove-marker-${marker.id}"><i class="fas fa-trash-alt"></i></button>
   </div>
   `;
 
   $('#marker-container').prepend(html);
   $('#search').val('');
+}
+
+const enableMarkerRemoval = function(markerID, mapID) {
+  const $div = $(`#marker-${markerID}`) 
+  const $button = $div.find(`#remove-marker-${markerID}`);
+
+  $button.click(function() {
+    const values = {
+      markerID,
+      mapID
+    }
+
+    $.post('/api/maps/markers/delete', values);
+
+    $div.remove();
+  })
+}
+
+const submitMap = function(newMapContainer) {
+  event.preventDefault();
+  newMapContainer.fadeOut();
+
+  const mapName = getMapName();
+
+  $.get(`/api/maps/${mapName}`)
+    .done(res => {
+      const map = res[0];
+      addMap(map);
+    })
 }

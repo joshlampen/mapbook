@@ -24,7 +24,7 @@
     <script type="text/javascript" src="/scripts/error-helpers.js"></script>
     <script type="text/javascript" src="/scripts/enable-search.js"></script>
     <script type="text/javascript" src="/scripts/load-map.js"></script>
-    <script type="text/javascript" src="/scripts/load-maps-feed.js"></script>
+    <script type="text/javascript" src="/scripts/maps-feed-helpers.js"></script>
     <script type="text/javascript" src="/scripts/get-favorites.js"></script>
     <script type="text/javascript" src="/scripts/registered-users.js"></script>
     <script type="text/javascript" src="/scripts/create-new-map-helpers.js"></script>
@@ -54,8 +54,9 @@
     <!-- Main Container for feed, and map-->
 
     <main>
-      <section class='feed'>
+      <section id='maps-feed'>
         <h1>Ugly Feed</h1>
+        <div id="maps-container"></div>
       </section>
 
     <div id="map"></div>
@@ -70,6 +71,7 @@
       <h2></h2>
       <input class="form-control" id="search" type="text" placeholder="Search" />
       <div id="marker-container"></div>
+      <button id="submit-map-button">Submit</button>
     </section>
     </main>
 
