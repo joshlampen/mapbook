@@ -23,9 +23,9 @@ const enableMarkerAdding = function() {
             lng
           };
 
-          $.post('/api/maps/markers', values)
+          $.post('/api/markers/', values)
             .done(() => {
-              $.get('/api/maps/markers', { mapID })
+              $.get('/api/markers/', { mapID })
                 .done(res => {
                   const marker = res[0];
 

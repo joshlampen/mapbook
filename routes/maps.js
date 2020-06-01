@@ -38,13 +38,11 @@ module.exports = (db) => {
     return db.query(`
     SELECT *
     FROM markers
-    WHERE map_id = $1
-    ORDER BY date_created DESC;
-    `, values)
+    WHERE map_id = $1`
+    //ORDER BY date_created DESC; date_created isn't defined. Will need to ask if this is needed
+    , values)
       .then(data => {
         res.json(data.rows);
-        //Formats into geoJson, but this needs to be appended dynamically as a script
-        // map.data.addGeoJson(toGeoJson(data.rows))
       })
       .catch(err => {
         res
@@ -52,23 +50,6 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   })
-
-  // router.get('/markers/', (req, res) => {
-  //   const query = `
-  //   SELECT *
-  //   FROM markers
-  //   `
-  //   // WHERE map_id = $1
-  //   return db.query(query)
-  //   //should send the values to the client side where I want to use helper functions
-  //   //And then dynamically add it as a script
-  //   .then(res => JSON.stringify(res.rows))
-  //   .catch(err => {
-  //     res
-  //       .status(500)
-  //       .json({ error: err.message });
-  //   });
-  // });
 
   //Upon clicking a suggested address, save to db
   router.post('/markers', (req, res) => {
@@ -143,6 +124,3 @@ module.exports = (db) => {
 
   return router;
 };
-
-
-
