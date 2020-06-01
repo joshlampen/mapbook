@@ -39,7 +39,7 @@ const enableMarkerRemoval = function(markerID, mapID) {
       mapID
     }
 
-    $.post('/api/maps/markers/delete', values);
+    $.post('/api/markers/delete', values);
 
     $div.remove();
   })
