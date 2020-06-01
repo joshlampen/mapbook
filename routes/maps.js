@@ -41,11 +41,7 @@ module.exports = (db) => {
 
     return db.query(`
     DELETE FROM maps
-<<<<<<< HEAD
     WHERE id = $1 AND user_id = $2;
-=======
-    WHERE id = $1;
->>>>>>> origin
     `, values)
   })
 

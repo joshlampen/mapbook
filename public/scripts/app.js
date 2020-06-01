@@ -12,7 +12,7 @@ $(document).ready(function() {
   const $cancelSubmit = $newMapContainer.find('#cancel-create');
 
   const $map = $('#maps-container').find('div');
-  
+
   loadMap(); // load empty map
   loadMapsFeed(); // loads all maps in database to the feed
   enableMarkerAdding(); // enables adding of markers when a location is searched
