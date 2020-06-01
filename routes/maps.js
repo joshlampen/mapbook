@@ -41,12 +41,16 @@ module.exports = (db) => {
 
     return db.query(`
     DELETE FROM maps
-<<<<<<< HEAD
-    WHERE id = $1;
-    `, values)
-      .then(data => res.json(data.rows))
-      .catch(e => e);
+    WHERE id = $1 AND user_id = $2;
+        `, values)
   })
+
+  /* Merge conflict here */
+// //    WHERE id = $1;
+//     , values)
+//       .then(data => res.json(data.rows))
+//       .catch(e => e);
+//   })
 
   router.post('/markers/delete', (req, res) => {
     const markerID = req.body.markerID;
@@ -87,14 +91,6 @@ module.exports = (db) => {
     return db.query(query, [userId, mapId])
     .then()
     .catch(err => console.error("Error", err.stack));
-=======
-<<<<<<< HEAD
-    WHERE id = $1 AND user_id = $2;
-=======
-    WHERE id = $1;
->>>>>>> origin
-    `, values)
->>>>>>> 476b4803c20659f6ff517cf6b05b69b0a3b617fe
   })
 
   router.get('/:mapName', (req, res) => { // gets id based on name and user_id
