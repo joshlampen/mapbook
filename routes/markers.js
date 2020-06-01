@@ -5,6 +5,7 @@ module.exports = (db) => {
   router.get('/', (req, res) => {
     const mapID = req.query.mapID;
     const userID = req.session.user_id;
+    console.log(userID);
 
     const values = [mapID, userID]
 
@@ -33,6 +34,7 @@ module.exports = (db) => {
     const lat = req.body.lat;
     const lng = req.body.lng;
     const userID = req.session.user_id;
+    console.log(userID);
 
     const values = [mapID, markerName, iconURL, lat, lng, userID];
 
@@ -49,6 +51,7 @@ module.exports = (db) => {
     const markerID = req.body.markerID;
     const mapID = req.body.mapID;
     const userID = req.session.user_id;
+    console.log(userID);
 
     const values = [markerID, mapID, userID];
 
