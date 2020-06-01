@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/styles/new-map.css" type="text/css" />
     <link rel="stylesheet" href="/styles/enter-map-name.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
 
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -35,10 +36,10 @@
   <body>
 
     <!-- Navigation Bar -->
-    <nav class='navbar navbar-light'>
-      <span class='navbar-brand'>MapBook</span>
+    <nav>
+      <span>MapBook</span>
       <ul class="nav-buttons">
-        <li><button>Create</button></li>
+        <li><button id="create">Create</button></li>
       </ul>
     </nav>
 
@@ -50,20 +51,22 @@
         <div id="maps-container"></div>
       </section>
 
-    <div id="map"></div>
+      <div id="map"></div>
 
-    <section id="enter-map-name">
-      <form id="new-map-name">
-        <textarea name="text" placeholder="Enter Map Name"></textarea>
-        <button type="submit" id="submit-map-name-button">Submit</button>
-      </form>
-    </section>
-    <section id="new-map">
-      <h2></h2>
-      <input class="form-control" id="search" type="text" placeholder="Search" />
-      <div id="marker-container"></div>
-      <button id="submit-map-button">Submit</button>
-    </section>
+      <section id="enter-map-name">
+        <form id="new-map-name">
+          <textarea name="text" placeholder="Enter Map Name"></textarea>
+          <button type="submit" id="submit-map-name-button">Submit</button>
+        </form>
+        <a href="">Cancel</a>
+      </section>
+      <section id="new-map">
+        <h2></h2>
+        <input class="form-control" id="search" type="text" placeholder="Search" />
+        <div id="marker-container"></div>
+        <button id="submit-map-button">Submit</button>
+        <a href="" id="cancel-create">Cancel</a>
+      </section>
     </main>
   </body>
 </html>
