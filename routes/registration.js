@@ -1,11 +1,12 @@
 const express = require('express');
 const router  = express.Router();
 const { addUser } = require('../db/dbFunctions')
+
 //const cookieSession = require('cookie-session')
 
 module.exports = (db) => {
 
-router.get('/registration', (req, res) => {
+router.get('/', (req, res) => {
     res.render('registration');
   })
 
@@ -22,16 +23,12 @@ router.post("/" , (req,res) => {
     res.send("🤗");
   })
   .catch(e => res.send(e));
-  res.render('registration') // 'Registration' was used as a test page but it should render homepage after
+  res.redirect('/')
   })
 
   return router;
 }
 
 
-
-/* Outstanding items to do:
-
-- use Bcrypt to hash the password. Look in to 'addUser' function in db/dbFunctions.js */
 
 
