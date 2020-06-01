@@ -27,7 +27,7 @@ const addMarker = function(marker) {
 }
 
 const enableMarkerRemoval = function(markerID, mapID) {
-  const $div = $(`#marker-${markerID}`) 
+  const $div = $(`#marker-${markerID}`)
   const $button = $div.find(`#remove-marker-${markerID}`);
 
   $button.click(function() {
