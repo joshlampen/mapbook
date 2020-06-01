@@ -7,6 +7,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const cookieSession = require('cookie-session');
 
 module.exports = (db) => {
   router.get('/', (req, res) => {
@@ -85,13 +86,14 @@ module.exports = (db) => {
 
   //Get all the favorited maps - Works! Will need to modify once we have all the ids
   router.get('/favorites', (req, res) => {
+    const userId = req.session.user_id
     const query = `
     SELECT * FROM favorites
+    WHERE user_id = $1
     `
-    //WHERE user_id = $1
-    return db.query(query)
+    return db.query(query, [userId])
     .then(res => {
-      console.log(res.rows)
+      console.log(res)
     })
     .catch(err => console.log("Error", err.stack))
 
@@ -99,6 +101,7 @@ module.exports = (db) => {
 
   //Favorite a map -- Will develop this further once favorites functionality has been setup
   router.post('/favorites', (req, res) => {
+    const userId = req.session.user_id
     const query =`
     INSERT INTO favorites (user_id, map_id)
     VALUES ($1, $2)
