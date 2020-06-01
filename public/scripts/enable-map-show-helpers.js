@@ -30,6 +30,7 @@ const displayMarkers = (markers) => {
   markers.forEach(marker => {
     locations.push(new google.maps.Marker({
       //Here we put in any details we want. We can insert that info into an infoWindow such that when we click the icon, the infow window shows
+      //Insert the image here
       map: map,
       title: marker.name,
       position: {lat: marker.latitude, lng: marker.longitude}

@@ -41,7 +41,6 @@ module.exports = (db) => {
     DELETE FROM maps
     WHERE id = $1;
     `, values)
-<<<<<<< HEAD
       .then(data => res.json(data.rows))
       .catch(e => e);
   })
@@ -85,8 +84,6 @@ module.exports = (db) => {
     return db.query(query, [userId, mapId])
     .then()
     .catch(err => console.error("Error", err.stack));
-=======
->>>>>>> origin
   })
 
   router.get('/:mapName', (req, res) => { // gets id based on name and user_id
