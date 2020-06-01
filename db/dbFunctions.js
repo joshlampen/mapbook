@@ -43,13 +43,11 @@ const getMarkers = mapId => {
 };
 
 //Fetch user info
-const findUser = (user, db) => {
-  const email = user.email //assuming that a user can have only one unique email
+const findUser = (email, db) => {
   const query = `
   SELECT * FROM users
-  WHERE user.email = $1
+  WHERE email = $1
   `
-
   return db.query(query, [email])
   .then(res => res.rows[0])
   .catch(err => console.error("User does not exist", err.stack));
