@@ -24,6 +24,8 @@ $(document).ready(function() {
   $('#dropdown').hide();
 
   $('#profile').click(function() {
+    event.preventDefault();
+    
     if ($('#dropdown').is(':hidden')) {
       $('#dropdown').slideDown()
     } else {
