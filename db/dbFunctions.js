@@ -51,7 +51,7 @@ const addUser = (user, db) => {
   const query = `
   INSERT INTO users (name, email, password)
   VALUES ($1, $2, $3)
-  SELECT *
+  RETURNING *
   `
   return db.query(query, [name, email, password])
   .then(res => res.rows[0])

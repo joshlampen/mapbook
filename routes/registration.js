@@ -1,3 +1,5 @@
+//Note, url path is /api/registration
+
 const express = require('express');
 const router  = express.Router();
 const { addUser } = require('../db/dbFunctions')
@@ -5,7 +7,7 @@ const { addUser } = require('../db/dbFunctions')
 
 module.exports = (db) => {
 
-router.get('/registration', (req, res) => {
+router.get('/', (req, res) => {
     res.render('registration');
   })
 
@@ -18,7 +20,7 @@ router.post("/" , (req,res) => {
       res.send({error: "error"});
       return;
     }
-    req.session.userId = user.id;
+    req.session.userId = console.log(user.id);
     res.send("🤗");
   })
   .catch(e => res.send(e));
