@@ -17,7 +17,7 @@ const showMap = function(mapID) {
 }
 
 const geoLocator = function(map) {
-  const infoWindow = new.google.maps.InfoWindow;
+  let infoWindow = new google.maps.InfoWindow;
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -38,14 +38,14 @@ const geoLocator = function(map) {
       infoWindow.open(map, presentLocationMarker);
       map.setCenter(pos);
     }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
+      handleGeoLocatorError(true, infoWindow, map.getCenter());
     });
   } else {
-    handleLocationError(false, infoWindow, map.getCenter());
+    handleGeoLocatorError(false, infoWindow, map.getCenter());
   }
 }
 
-const handleLocationError = function(browserHasGeoLoc, infoWindow, pos) {
+const handleGeoLocatorError = function(browserHasGeoLoc, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(browserHasGeolocation ?
                         'Error: The Geolocation service failed.' :
