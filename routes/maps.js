@@ -21,13 +21,14 @@ module.exports = (db) => {
 
   router.post('/', (req, res) => {
     const mapName = req.body.name;
+    const city = req.body.city;
     const userID = req.session.user_id
 
-    const values = [mapName, userID];
+    const values = [mapName, city, userID];
 
     return db.query(`
-    INSERT INTO maps (name, user_id)
-    VALUES ($1, $2)
+    INSERT INTO maps (name, city, user_id)
+    VALUES ($1, $2, $3)
     RETURNING *;
     `, values)
       .then(data => res.json(data.rows));

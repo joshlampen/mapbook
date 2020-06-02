@@ -16,7 +16,7 @@ main {
 
 section.map_container {
   width: 80%;
-  height: 700px;
+  height: 92vh;
 }
 
 h1 {
@@ -24,13 +24,9 @@ h1 {
 }
 
 #map {
-  height: 700px;
+  height: 92vh;
   width: 80%;
   position: relative;
-}
-
-#search {
-  width: 100%;
 }
 
 a {
