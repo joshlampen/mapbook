@@ -1,9 +1,14 @@
 $(document).ready(function() {
   const $createButton = $('#create');
+  const $profileButton = $('#profile');
+  const $dropdown = $('#dropdown');
+
+  const $registerDiv = $('#register');
+  const $registerForm = $registerDiv.find('#register-form');
 
   const $enterNameDiv = $('#enter-map-name');
   const $enterNameForm = $enterNameDiv.find('#new-map-name'); // where the user submits the map name
-  const $enterNameTextArea = $enterNameForm.find('textarea');
+  const $nameInput = $enterNameForm.find('input');
   const $cancelCreate = $enterNameDiv.find('a');
 
   const $newMapContainer = $('#new-map'); // container that appears following map name submission
@@ -21,38 +26,58 @@ $(document).ready(function() {
 
   $enterNameDiv.hide();
   $newMapContainer.hide(); // hide the new map container initially
-  $('#dropdown').hide();
+  $dropdown.hide();
+  $registerDiv.hide();
 
-  $('#profile').click(function() {
+  $profileButton.click(function() {
     event.preventDefault();
-
-    if ($('#dropdown').is(':hidden')) {
-      $('#dropdown').slideDown()
-    } else {
-      $('#dropdown').slideUp();
-    }
+    $.post('/')
+      .done(() => {
+        if ($dropdown.is(':hidden')) {
+          $dropdown.slideDown();
+        } else {
+          $dropdown.slideUp();
+        }
+      })
+      .catch(() => {
+        if ($registerDiv.is(':hidden')) {
+          $registerDiv.fadeIn();
+        } else {
+          $registerDiv.fadeOut();
+        }
+      });
   })
 
   $createButton.click(function() {
     event.preventDefault();
 
-    if ($enterNameDiv.is(":hidden")) {
-      $enterNameTextArea.val('');
-      $enterNameDiv.fadeIn();
-    } else {
-      $enterNameDiv.fadeOut();
-    }
+    $.post('/')
+      .done(() => {
+        if ($enterNameDiv.is(":hidden")) {
+          $nameInput.val('');
+          $enterNameDiv.fadeIn();
+        } else {
+          $enterNameDiv.fadeOut();
+        }
 
-    if ($newMapContainer.is(":visible")) {
-      $enterNameDiv.hide();
-      cancelMap($newMapContainer);
-    }
+        if ($newMapContainer.is(":visible")) {
+          $enterNameDiv.hide();
+          cancelMap($newMapContainer);
+        }
+      })
+      .catch(() => {
+        if ($registerDiv.is(':hidden')) {
+          $registerDiv.fadeIn();
+        } else {
+          $registerDiv.fadeOut();
+        }
+      });
   })
 
   $enterNameForm.submit(function(event) { // upon submission of map name...
     event.preventDefault();
     $enterNameDiv.fadeOut();
-    createNewMap($enterNameForm, $newMapContainer, $newMapHeader); // hide the map name submission container, show new map container
+    createNewMap($nameInput, $newMapContainer, $newMapHeader); // hide the map name submission container, show new map container
   })
 
   $cancelCreate.click(function() {
@@ -68,9 +93,16 @@ $(document).ready(function() {
     cancelMap($newMapContainer);
   })
 
+  $registerForm.submit(function(event) {
+    event.preventDefault();
+    const values = $registerForm.serialize();
+    
+    $.post('/users/register/', values)
+    $registerDiv.fadeOut();
+  })
+
   $('#maps-container').on('click', '.favorite-map', function() {
     const mapID = $(this).attr('id').slice(13)
     $.post('/api/favorites/', {mapID})
   })
-
 });

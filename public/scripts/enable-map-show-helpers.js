@@ -1,6 +1,6 @@
 const enableMapShow = function() {
   google.maps.event.addDomListener(window, 'load', function() {
-    $('#maps-container').on( 'click', '.map', function () {
+    $('#maps-container').on( 'click', '.map', function() {
       const mapID = $(this).attr('id').slice(4);
       showMap(mapID);
     });
@@ -8,7 +8,6 @@ const enableMapShow = function() {
 };
 
 const showMap = function(mapID) {
-  cancelMap($('#new-map'));
   $('#marker-container').empty();
 
   $.get('api/markers/', { mapID })

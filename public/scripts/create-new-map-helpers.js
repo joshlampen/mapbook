@@ -1,5 +1,5 @@
-const createNewMap = function(enterNameForm, newMapContainer, newMapHeader) {
-  const entry = enterNameForm.serialize();
+const createNewMap = function(nameInput, newMapContainer, newMapHeader) {
+  const entry = nameInput.serialize();
 
   $.post('/api/maps/', entry)
     .done(res => {
