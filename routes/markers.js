@@ -15,6 +15,7 @@ module.exports = (db) => {
     `
     , values)
       .then(data => {
+
         res.json(data.rows);
       })
       .catch(err => {
