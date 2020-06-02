@@ -15,11 +15,14 @@ const addMap = function(map) {
   `;
 
   $('#maps-container').prepend(html);
-
-
-
-
   $(`#map-${map.id}`).trigger('click');
 }
 
+
+const loadFavoritesFeed = function () {
+  $.get('/api/favorites/')
+  .done(favs => {
+    return favs.forEach(map => addMap(map))
+  });
+}
 

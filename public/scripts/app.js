@@ -1,6 +1,6 @@
 $(document).ready(function() {
   loadMap(); // load empty map
-  
+
   const $createButton = $('#create');
   const $profileButton = $('#profile');
   const $dropdown = $('#dropdown');
@@ -18,6 +18,7 @@ $(document).ready(function() {
   const $markerContainer = $newMapContainer.find('#marker-container');
   const $submitMapButton = $newMapContainer.find('#submit-map-button');
   const $cancelSubmit = $newMapContainer.find('#cancel-create');
+  const $favorites = $('#dropdown').find('a:contains("Favorites")');
 
   const $map = $('#maps-container').find('div');
 
@@ -100,7 +101,7 @@ $(document).ready(function() {
   $registerForm.submit(function(event) {
     event.preventDefault();
     const values = $registerForm.serialize();
-    
+
     $.post('/users/register/', values)
     $('#map').removeClass('greyscale');
     $registerDiv.fadeOut();
@@ -110,4 +111,11 @@ $(document).ready(function() {
     const mapID = $(this).attr('id').slice(13)
     $.post('/api/favorites/', {mapID})
   })
+
+  $favorites.click(function() {
+    $( "#maps-container" ).empty();
+    loadFavoritesFeed();
+  })
+
+
 });

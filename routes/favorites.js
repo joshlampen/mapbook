@@ -6,13 +6,12 @@ module.exports = (db) => {
   router.get('/', (req, res) => {
     const userID = req.session.user_id;
     const query = `
-    SELECT * FROM favorites
-    WHERE user_id = $1`
-
+    SELECT maps.* FROM maps
+    JOIN favorites ON maps.id = map_id
+    WHERE favorites.user_id = $1;
+    `
     return db.query(query, [userID])
-    .then(res => {
-      console.log(res.rows)
-    })
+    .then(res => res.rows)
     .catch(err => console.log("Error", err.stack))
 
   })
