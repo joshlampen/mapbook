@@ -1,0 +1,10 @@
+.marker {
+  display: flex;
+  flex-direction: column;
+}
+
+.marker div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

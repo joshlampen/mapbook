@@ -24,16 +24,13 @@ const loadMap = function() {
       };
 
       infoWindow.setPosition(position);
-      infoWindow.setContent('Your location!');
       infoWindow.open(map.setCenter(position));
 
     }, function() {
       handleLocationError('Geolocation service failed', map.center());
-
     });
   } else {
     handleLocationError('No geolocation available', map.center());
-
   }
 
   // load search bar
