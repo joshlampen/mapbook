@@ -41,8 +41,10 @@ $(document).ready(function() {
       })
       .catch(() => {
         if ($registerDiv.is(':hidden')) {
+          $('#map').addClass('greyscale');
           $registerDiv.fadeIn();
         } else {
+          $('#map').removeClass('greyscale');
           $registerDiv.fadeOut();
         }
       });
@@ -50,7 +52,6 @@ $(document).ready(function() {
 
   $createButton.click(function() {
     event.preventDefault();
-
     $.post('/')
       .done(() => {
         if ($enterNameDiv.is(":hidden")) {
@@ -67,8 +68,10 @@ $(document).ready(function() {
       })
       .catch(() => {
         if ($registerDiv.is(':hidden')) {
+          $('#map').addClass('greyscale');
           $registerDiv.fadeIn();
         } else {
+          $('#map').removeClass('greyscale');
           $registerDiv.fadeOut();
         }
       });
@@ -98,6 +101,7 @@ $(document).ready(function() {
     const values = $registerForm.serialize();
     
     $.post('/users/register/', values)
+    $('#map').removeClass('greyscale');
     $registerDiv.fadeOut();
   })
 
