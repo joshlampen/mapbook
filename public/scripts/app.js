@@ -25,7 +25,7 @@ $(document).ready(function() {
 
   $('#profile').click(function() {
     event.preventDefault();
-    
+
     if ($('#dropdown').is(':hidden')) {
       $('#dropdown').slideDown()
     } else {
@@ -67,4 +67,10 @@ $(document).ready(function() {
   $cancelSubmit.click(function() {
     cancelMap($newMapContainer);
   })
+
+  $('#maps-container').on('click', '.favorite-map', function() {
+    const mapID = $(this).attr('id').slice(13)
+    $.post('/api/favorites/', {mapID})
+  })
+
 });

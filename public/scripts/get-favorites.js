@@ -4,9 +4,6 @@
 $(document).ready(function() {
 
 // Event listener
-$('#maps-container').find('button').click(function(){
-  alert("hello");
-})
 
 /*
 $('button').click(function(){

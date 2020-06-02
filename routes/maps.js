@@ -44,11 +44,7 @@ module.exports = (db) => {
     return db.query(`
     DELETE FROM maps
     WHERE id = $1 AND user_id = $2;
-<<<<<<< HEAD
-    `, values)
-=======
         `, values)
->>>>>>> origin
   })
 
   router.get('/:mapName', (req, res) => { // gets id based on name and user_id

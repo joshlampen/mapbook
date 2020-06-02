@@ -19,14 +19,16 @@ module.exports = (db) => {
 
   //Favorite a map -- Will develop this further once favorites functionality has been setup
   router.post('/', (req, res) => {
+    const mapID = req.body.mapID;
     const userID = req.session.user_id;
     const query =`
     INSERT INTO favorites (user_id, map_id)
     VALUES ($1, $2)
     `
+    console.log(req.body)
 
-    return db.query(query, [userID, mapId])
-    .then()
+    return db.query(query, [userID, mapID])
+    .then(res => {res})
     .catch(err => console.error("Error", err.stack));
   })
 
