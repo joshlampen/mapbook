@@ -16,6 +16,43 @@ const showMap = function(mapID) {
     })
 }
 
+const geoLocator = function(map) {
+  const infoWindow = new.google.maps.InfoWindow;
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      const pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+
+      const presentLocationMarker = new google.maps.Marker({
+        map: map,
+        position: {lat: pos.lat, lng: pos.lng},
+        title: "Your location!",
+        image: 'https://image.flaticon.com/icons/svg/846/846551.svg'
+      });
+
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Location found');
+      infoWindow.open(map, presentLocationMarker);
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+}
+
+const handleLocationError = function(browserHasGeoLoc, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+  infoWindow.open(map);
+}
+
 const displayMarkers = (markers) => {
   const options = {
     center: { lat: 43.654, lng: -79.383 },
@@ -26,6 +63,9 @@ const displayMarkers = (markers) => {
   const map = new google.maps.Map(document.getElementById('map'), options);
   const bounds = new google.maps.LatLngBounds();
   const locations = [];
+
+  //Geolocation
+  geoLocator(map);
 
   markers.forEach(marker => {
 
