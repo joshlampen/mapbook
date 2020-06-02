@@ -65,9 +65,6 @@ module.exports = (db) => {
   router.get('/user/:user', (req, res) => {
     const userID = req.session.user_id;
 
-    // return db.query(query, [userID])
-    // .then(data => res.json(data.rows))
-    // .catch(err => console.log('Error', err.stack));
     getUserMaps(userID, db)
     .then(data => res.json(data));
   })
