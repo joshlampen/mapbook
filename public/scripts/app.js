@@ -111,7 +111,6 @@ $(document).ready(function() {
     const mapID = $(this).attr('id').slice(13)
     $.post('/api/favorites/', {mapID})
   })
-<<<<<<< HEAD
 
   $favorites.click(function(event) {
     event.preventDefault()
@@ -125,6 +124,3 @@ $(document).ready(function() {
 
 
 });
-=======
-});
->>>>>>> origin
