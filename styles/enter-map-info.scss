@@ -1,0 +1,36 @@
+@import 'variables';
+
+#enter-map-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  width: 200px;
+  background-color: $background-white;
+  border: 2px solid $purple;
+}
+
+#enter-map-info a {
+  font-size: 12px;
+  padding: 5px 0px 5px 0px;
+}
+
+#enter-map-info h2 {
+  font-family: $button-font;
+  margin: 10px 0px 10px 0px;
+}
+
+#map-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#map-form input {
+  margin-bottom: 10px;
+}
+
+#map-form button {
+  margin-top: 10px;
+}

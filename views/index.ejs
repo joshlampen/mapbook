@@ -12,8 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
 
     <!-- App CSS -->
+    <link rel="stylesheet" href="/styles/enter-map-info.css" type="text/css" />
     <link rel="stylesheet" href="/styles/new-map.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/enter-map-name.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
     <link rel="stylesheet" href="/styles/register.css" type="text/css" />
@@ -59,32 +59,35 @@
 
       <div id="map"></div>
 
-      <ul id="dropdown" class="hidden">
+      <ul id="dropdown">
         <li><a href="">Favorites</a></li>
-        <li><a href="">Contributions</a></li>
+        <li><a href="">My Maps</a></li>
         <li><a href="">Logout</a></li>
       </ul>
 
-      <section id='register' class="hidden">
+      <section id='register'>
         <h1>Register</h1>
         <form id="register-form">
-          <input type="text" name="name" placeholder="Name"></textarea>
-          <input type="text" name="email" placeholder="Email"></textarea>
-          <input type="text" name="password" placeholder="Password"></textarea>
+          <input type="text" name="name" placeholder="Name"></input>
+          <input type="text" name="email" placeholder="Email"></input>
+          <input type="text" name="password" placeholder="Password"></input>
           <button type="submit" id="register-button">Submit</button>
         </form>
       </section>
 
-      <section id="enter-map-name" class="hidden">
-        <form id="new-map-name">
-          <input type="text" name="name" placeholder="Enter Map Name"></textarea>
+      <section id="enter-map-info">
+        <h2>Get Started</h2>
+        <form id="map-form">
+          <input type="text" name="name" placeholder="Map Name"></input>
+          <input type="text" name="city" placeholder="City"></input>
           <button type="submit" id="submit-map-name-button">Submit</button>
         </form>
         <a href="">Cancel</a>
       </section>
-      <section id="new-map" class="hidden">
-        <h2></h2>
-        <input class="form-control" id="search" type="text" placeholder="Search" />
+      <section id="new-map">
+        <h2>My Map</h2>
+        <h4>Vancouver</h4>
+        <input class="form-control" id="search" type="text" placeholder="Search for locations" />
         <div id="marker-container"></div>
         <button id="submit-map-button">Submit</button>
         <a href="" id="cancel-create">Cancel</a>
