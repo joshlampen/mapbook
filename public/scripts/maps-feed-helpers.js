@@ -25,3 +25,11 @@ const loadFavoritesFeed = function () {
   });
 }
 
+const loadMyMaps = function () {
+  $.get('/api/maps/user/:user', function (data) {
+    if (!data) {
+      return;
+    }
+    data.forEach(map => addMap(map))
+  })
+}

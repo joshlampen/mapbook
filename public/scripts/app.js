@@ -18,6 +18,7 @@ $(document).ready(function() {
   const $submitMapButton = $newMapContainer.find('#submit-map-button');
   const $cancelSubmit = $newMapContainer.find('#cancel-create');
   const $favorites = $('#dropdown').find('a:contains("Favorites")');
+  const $myMaps = $('#dropdown').find('a:contains("My Maps")');
 
   const $map = $('#maps-container').find('div');
 
@@ -112,20 +113,17 @@ $(document).ready(function() {
     const mapID = $(this).attr('id').slice(13)
     $.post('/api/favorites/', {mapID})
   })
-<<<<<<< HEAD
 
   $favorites.click(function(event) {
     event.preventDefault()
     $( "#maps-container" ).empty()
     loadFavoritesFeed()
-    /*
-    $.post('/').done(() => {
-      loadFavoritesFeed();
-    })*/
   })
 
+  $myMaps.click(function(event) {
+    event.preventDefault()
+    $( "#maps-container" ).empty()
+    loadMyMaps()
+  })
 
 });
-=======
-});
->>>>>>> origin
