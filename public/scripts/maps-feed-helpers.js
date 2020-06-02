@@ -16,10 +16,5 @@ const addMap = function(map) {
 
   $('#maps-container').prepend(html);
 
-
-
-
   $(`#map-${map.id}`).trigger('click');
 }
-
-
