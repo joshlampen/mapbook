@@ -101,4 +101,18 @@ const escape =  function(str) {
   return div.innerHTML;
 };
 
-module.exports = { addUser, findUser }
+//Get user's maps
+const getUserMaps = function(user_id, db) {
+  const query = `
+  SELECT * FROM maps
+  WHERE user_id = $1
+  `
+  return db.query(query, [user_id])
+  .then(data => data.rows)
+  .catch(err => console.log('Error', err.stack));
+      // return db.query(query, [userID])
+    // .then(data => res.json(data.rows))
+    // .catch(err => console.log('Error', err.stack));
+};
+
+module.exports = { addUser, findUser, getUserMaps }
