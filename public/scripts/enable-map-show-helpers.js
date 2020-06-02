@@ -37,7 +37,7 @@ const displayMarkers = (markers) => {
     }
 
     service.findPlaceFromQuery(request, function(results, status) {
-
+      console.log("inside of marker.forEach")
       if (status === google.maps.places.PlacesServiceStatus.OK) {
 
         const googleMarker = new google.maps.Marker({
@@ -47,7 +47,7 @@ const displayMarkers = (markers) => {
           position: {lat: marker.latitude, lng: marker.longitude},
           icon: marker.icon_url
         });
-        //Event listener for the infowindow
+
         const text =
         `name: ${googleMarker.title}
         address: ${googleMarker.address}
