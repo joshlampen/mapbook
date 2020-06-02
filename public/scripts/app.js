@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  loadMap(); // load empty map
+  
   const $createButton = $('#create');
   const $profileButton = $('#profile');
   const $dropdown = $('#dropdown');
@@ -19,20 +21,15 @@ $(document).ready(function() {
 
   const $map = $('#maps-container').find('div');
 
-  loadMap(); // load empty map
   loadMapsFeed(); // loads all maps in database to the feed
   enableMarkerAdding(); // enables adding of markers when a location is searched
   enableMapShow();
-
-  $enterNameDiv.hide();
-  $newMapContainer.hide(); // hide the new map container initially
-  $dropdown.hide();
-  $registerDiv.hide();
 
   $profileButton.click(function() {
     event.preventDefault();
     $.post('/')
       .done(() => {
+        $dropdown.removeClass('hidden');
         if ($dropdown.is(':hidden')) {
           $dropdown.slideDown();
         } else {
@@ -40,6 +37,7 @@ $(document).ready(function() {
         }
       })
       .catch(() => {
+        $registerDiv.removeClass('hidden');
         if ($registerDiv.is(':hidden')) {
           $('#map').addClass('greyscale');
           $registerDiv.fadeIn();
@@ -56,6 +54,7 @@ $(document).ready(function() {
       .done(() => {
         if ($enterNameDiv.is(":hidden")) {
           $nameInput.val('');
+          $enterNameDiv.removeClass('hidden');
           $enterNameDiv.fadeIn();
         } else {
           $enterNameDiv.fadeOut();
@@ -69,6 +68,7 @@ $(document).ready(function() {
       .catch(() => {
         if ($registerDiv.is(':hidden')) {
           $('#map').addClass('greyscale');
+          $registerDiv.removeClass('hidden');
           $registerDiv.fadeIn();
         } else {
           $('#map').removeClass('greyscale');
@@ -79,6 +79,7 @@ $(document).ready(function() {
 
   $enterNameForm.submit(function(event) { // upon submission of map name...
     event.preventDefault();
+    $newMapContainer.removeClass('hidden');
     $enterNameDiv.fadeOut();
     createNewMap($nameInput, $newMapContainer, $newMapHeader); // hide the map name submission container, show new map container
   })

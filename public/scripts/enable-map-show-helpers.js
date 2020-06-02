@@ -16,68 +16,6 @@ const showMap = function(mapID) {
     })
 }
 
-// const geoLocator = function(map) {
-//   let infoWindow = new google.maps.InfoWindow;
-
-//   if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(function(position) {
-//       const pos = {
-//         lat: position.coords.latitude,
-//         lng: position.coords.longitude,
-//       };
-
-//       const presentLocationMarker = new google.maps.Marker({
-//         map: map,
-//         position: {lat: pos.lat, lng: pos.lng},
-//         title: 'You Are Here',
-//         // icon: { url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png" }
-//       });
-
-//       infoWindow.setPosition(pos);
-//       infoWindow.setContent('You Are Here');
-//       infoWindow.open(map, presentLocationMarker);
-//       map.setCenter(pos);
-//     }, function() {
-//       handleGeoLocatorError(true, infoWindow, map.getCenter());
-//     });
-//   } else {
-//     handleGeoLocatorError(false, infoWindow, map.getCenter());
-//   }
-// }
-
-const getMyLocation = function(map) {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      const pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      };
-
-      const myLocation = new google.maps.Marker({
-        map: map,
-        position: {lat: pos.lat, lng: pos.lng},
-        title: 'You Are Here',
-        // icon: { url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png" }
-      });
-
-      return myLocation;
-
-    }, function() {
-      handleGeoLocatorError(true, infoWindow, map.getCenter());
-    });
-  } else {
-    handleGeoLocatorError(false, infoWindow, map.getCenter());
-  }
-}
-
-const handleGeoLocatorError = function(browserHasGeoLoc, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-  infoWindow.open(map);
-}
-
 const displayMarkers = markers => {
   const options = {
     center: { lat: 43.654, lng: -79.383 },
@@ -146,7 +84,6 @@ const displayMarkers = markers => {
     locations.push(googleMarker);
     bounds.extend(googleMarker.position); // Centers the map such that we can see all the markers
   })
-
 
   map.fitBounds(bounds);
 }
