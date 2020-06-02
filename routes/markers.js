@@ -4,7 +4,6 @@ const router  = express.Router();
 module.exports = (db) => {
   router.get('/', (req, res) => {
     const mapID = req.query.mapID;
-
     const values = [mapID]
 
     return db.query(`
@@ -15,7 +14,6 @@ module.exports = (db) => {
     `
     , values)
       .then(data => {
-
         res.json(data.rows);
       })
       .catch(err => {
@@ -33,7 +31,6 @@ module.exports = (db) => {
     const lat = req.body.lat;
     const lng = req.body.lng;
     const userID = req.session.user_id;
-    console.log(userID);
 
     const values = [mapID, markerName, iconURL, lat, lng, userID];
 
@@ -50,7 +47,6 @@ module.exports = (db) => {
     const markerID = req.body.markerID;
     const mapID = req.body.mapID;
     const userID = req.session.user_id;
-    console.log(userID);
 
     const values = [markerID, mapID, userID];
 
