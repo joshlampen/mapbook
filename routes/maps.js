@@ -8,6 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 const cookieSession = require('cookie-session');
+const { getUserMaps } = require('../db/dbFunctions')
 
 module.exports = (db) => {
   router.get('/', (req, res) => {
@@ -48,7 +49,6 @@ module.exports = (db) => {
   router.get('/:mapName', (req, res) => { // gets id based on name and user_id
     const mapName = req.params.mapName;
     const userID = req.session.user_id;
-    console.log(userID);
 
     const values = [mapName, userID]
 
@@ -61,5 +61,14 @@ module.exports = (db) => {
       .then(data => res.json(data.rows));
   })
 
+  //Get maps for a specific user
+  router.get('/user/:user', (req, res) => {
+    const userID = req.session.user_id;
+
+    getUserMaps(userID, db)
+    .then(data => res.json(data));
+  })
+
   return router;
+
 };

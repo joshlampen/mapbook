@@ -91,7 +91,6 @@ const getFavorites = (user_id) => {
   return db.query(query, [user_id])
   .then(res => console.log(res.rows))
   .catch(err => console.log("Error", err.stack))
-
 }
 
 //Escape function
@@ -101,4 +100,15 @@ const escape =  function(str) {
   return div.innerHTML;
 };
 
-module.exports = { addUser, findUser }
+//Get user's maps
+const getUserMaps = function(user_id, db) {
+  const query = `
+  SELECT * FROM maps
+  WHERE user_id = $1
+  `
+  return db.query(query, [user_id])
+  .then(data => data.rows)
+  .catch(err => console.log('Error', err.stack));
+};
+
+module.exports = { addUser, findUser, getUserMaps }
