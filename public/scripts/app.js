@@ -13,7 +13,7 @@ $(document).ready(function() {
   const $cancelSubmit = $newMapContainer.find('#cancel-create');
 
   const $map = $('#maps-container').find('div');
-  
+
   loadMap(); // load empty map
   loadMapsFeed(); // loads all maps in database to the feed
   enableMarkerAdding(); // enables adding of markers when a location is searched
@@ -25,7 +25,7 @@ $(document).ready(function() {
 
   $('#profile').click(function() {
     event.preventDefault();
-    
+
     if ($('#dropdown').is(':hidden')) {
       $('#dropdown').slideDown()
     } else {
@@ -67,4 +67,10 @@ $(document).ready(function() {
   $cancelSubmit.click(function() {
     cancelMap($newMapContainer);
   })
+
+  $('#maps-container').on('click', '.favorite-map', function() {
+    const mapID = $(this).attr('id').slice(13)
+    $.post('/api/favorites/', {mapID})
+  })
+
 });
