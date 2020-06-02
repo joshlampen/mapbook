@@ -1,5 +1,5 @@
-const createNewMap = function(enterNameForm, newMapContainer, newMapHeader) {
-  const entry = enterNameForm.serialize();
+const createNewMap = function(nameInput, newMapContainer, newMapHeader) {
+  const entry = nameInput.serialize();
 
   $.post('/api/maps/', entry)
     .done(res => {
@@ -43,6 +43,7 @@ const enableMarkerRemoval = function(markerID, mapID) {
 }
 
 const submitMap = function(newMapContainer, markerContainer) {
+  console.log('using submitMap')
   event.preventDefault();
   newMapContainer.fadeOut();
   markerContainer.empty();
@@ -57,6 +58,7 @@ const submitMap = function(newMapContainer, markerContainer) {
 }
 
 const cancelMap = function(newMapContainer) {
+  console.log('using cancelMap')
   event.preventDefault();
   newMapContainer.fadeOut();
 

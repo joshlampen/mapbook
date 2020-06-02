@@ -20,7 +20,7 @@ module.exports = (db) => {
   })
 
   router.post('/', (req, res) => {
-    const mapName = req.body.text;
+    const mapName = req.body.name;
     const userID = req.session.user_id
     console.log(userID);
 
@@ -35,6 +35,7 @@ module.exports = (db) => {
   })
 
   router.post('/delete', (req, res) => {
+    console.log('uh oh')
     const mapID = req.body.mapID;
     const userID = req.session.user_id;
     console.log(userID);

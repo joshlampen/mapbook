@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/styles/enter-map-name.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/register.css" type="text/css" />
 
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -61,9 +62,19 @@
         <li><a href="">Logout</a></li>
       </ul>
 
+      <section id='register'>
+        <h1>Register</h1>
+        <form id="register-form">
+          <input type="text" name="name" placeholder="Name"></textarea>
+          <input type="text" name="email" placeholder="Email"></textarea>
+          <input type="text" name="password" placeholder="Password"></textarea>
+          <button type="submit" id="register-button">Submit</button>
+        </form>
+      </section>
+
       <section id="enter-map-name">
         <form id="new-map-name">
-          <textarea name="text" placeholder="Enter Map Name"></textarea>
+          <input type="text" name="name" placeholder="Enter Map Name"></textarea>
           <button type="submit" id="submit-map-name-button">Submit</button>
         </form>
         <a href="">Cancel</a>

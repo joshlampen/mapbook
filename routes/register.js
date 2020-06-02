@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
     res.render('registration');
   })
 
-router.post("/" , (req,res) => {
+router.post("/" , (req, res) => {
 
   // // Here I want to verify if the user is already in the db, currently stuck
   // findUser(req.body, db)

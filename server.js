@@ -65,6 +65,12 @@ app.get("/", (req, res) => {
   res.render("index")
 });
 
+app.post("/", (req, res) => {
+  const userID = req.session.user_id
+  console.log(userID);
+  res.json(userID);
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
