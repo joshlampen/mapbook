@@ -10,15 +10,42 @@ const enableMapShow = function() {
 const showMap = function(mapID) {
   $('#marker-container').empty();
 
-  $.get('api/markers/', { mapID })
+  $.get('/api/markers/', { mapID })
     .done(markers => {
       displayMarkers(markers);
     })
 }
 
-const geoLocator = function(map) {
-  let infoWindow = new google.maps.InfoWindow;
+// const geoLocator = function(map) {
+//   let infoWindow = new google.maps.InfoWindow;
 
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(function(position) {
+//       const pos = {
+//         lat: position.coords.latitude,
+//         lng: position.coords.longitude,
+//       };
+
+//       const presentLocationMarker = new google.maps.Marker({
+//         map: map,
+//         position: {lat: pos.lat, lng: pos.lng},
+//         title: 'You Are Here',
+//         // icon: { url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png" }
+//       });
+
+//       infoWindow.setPosition(pos);
+//       infoWindow.setContent('You Are Here');
+//       infoWindow.open(map, presentLocationMarker);
+//       map.setCenter(pos);
+//     }, function() {
+//       handleGeoLocatorError(true, infoWindow, map.getCenter());
+//     });
+//   } else {
+//     handleGeoLocatorError(false, infoWindow, map.getCenter());
+//   }
+// }
+
+const getMyLocation = function(map) {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       const pos = {
@@ -26,17 +53,15 @@ const geoLocator = function(map) {
         lng: position.coords.longitude,
       };
 
-      const presentLocationMarker = new google.maps.Marker({
+      const myLocation = new google.maps.Marker({
         map: map,
         position: {lat: pos.lat, lng: pos.lng},
-        title: "Your location!",
-        image: 'https://image.flaticon.com/icons/svg/846/846551.svg'
+        title: 'You Are Here',
+        // icon: { url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png" }
       });
 
-      infoWindow.setPosition(pos);
-      infoWindow.setContent('Location found');
-      infoWindow.open(map, presentLocationMarker);
-      map.setCenter(pos);
+      return myLocation;
+
     }, function() {
       handleGeoLocatorError(true, infoWindow, map.getCenter());
     });
@@ -53,21 +78,25 @@ const handleGeoLocatorError = function(browserHasGeoLoc, infoWindow, pos) {
   infoWindow.open(map);
 }
 
-const displayMarkers = (markers) => {
+const displayMarkers = markers => {
   const options = {
     center: { lat: 43.654, lng: -79.383 },
     zoom: 10,
     maxZoom: 15,
     disableDefaultUI: true
   };
+
   const map = new google.maps.Map(document.getElementById('map'), options);
   const bounds = new google.maps.LatLngBounds();
   const locations = [];
 
-  //Geolocation
-  geoLocator(map);
-
   markers.forEach(marker => {
+
+    const googleMarker = new google.maps.Marker({
+      map: map,
+      title: marker.name,
+      position: {lat: marker.latitude, lng: marker.longitude},
+    });
 
     const service = new google.maps.places.PlacesService(map);
 
@@ -77,7 +106,6 @@ const displayMarkers = (markers) => {
     }
 
     service.findPlaceFromQuery(request, function(results, status) {
-      console.log("inside of marker.forEach")
       if (status === google.maps.places.PlacesServiceStatus.OK) {
 
         const googleMarker = new google.maps.Marker({
@@ -85,27 +113,40 @@ const displayMarkers = (markers) => {
           title: marker.name,
           address: results[0].formatted_address,
           position: {lat: marker.latitude, lng: marker.longitude},
-          icon: marker.icon_url
         });
 
-        const text =
-        `name: ${googleMarker.title}
-        address: ${googleMarker.address}
-        ${googleMarker.icon}
+        const html = `
+        <div class="marker">
+          <div>
+            <h3>${googleMarker.title}</h3>
+            <img src=${marker.icon_url}>
+          </div>
+          <p>${googleMarker.address}</p>
+        </div>
         `
+
         const infoWindow = new google.maps.InfoWindow({
-          content: text
+          content: html
         });
 
-        infoWindow.open(map, googleMarker);
+        googleMarker.addListener('mouseover', function() {
+          infoWindow.open(map, googleMarker);
+        })
+
+        googleMarker.addListener('mouseout', function() {
+          infoWindow.close(map, googleMarker);
+        })
+
+        // infoWindow.open(map, googleMarker);
         locations.push(googleMarker);
         bounds.extend(googleMarker.position);
       };
     })
+
+    locations.push(googleMarker);
+    bounds.extend(googleMarker.position); // Centers the map such that we can see all the markers
   })
 
-  //Centers the map such that we can see all the markers
-  //locations.forEach(marker => bounds.extend(marker.position));
 
   map.fitBounds(bounds);
 }

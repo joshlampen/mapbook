@@ -4,15 +4,13 @@ const router  = express.Router();
 module.exports = (db) => {
   router.get('/', (req, res) => {
     const mapID = req.query.mapID;
-    const userID = req.session.user_id;
 
-    const values = [mapID, userID]
+    const values = [mapID]
 
     return db.query(`
     SELECT *
     FROM markers
     WHERE map_id = $1
-    AND user_id = $2
     ORDER BY date_created DESC
     `
     , values)
