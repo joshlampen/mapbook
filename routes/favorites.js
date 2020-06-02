@@ -11,9 +11,8 @@ module.exports = (db) => {
     WHERE favorites.user_id = $1;
     `
     return db.query(query, [userID])
-    .then(res => res.rows)
+    .then(data => res.json(data.rows))
     .catch(err => console.log("Error", err.stack))
-
   })
 
   //Favorite a map -- Will develop this further once favorites functionality has been setup
@@ -24,7 +23,6 @@ module.exports = (db) => {
     INSERT INTO favorites (user_id, map_id)
     VALUES ($1, $2)
     `
-    console.log(req.body)
 
     return db.query(query, [userID, mapID])
     .then(res => {res})

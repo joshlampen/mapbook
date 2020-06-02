@@ -112,9 +112,14 @@ $(document).ready(function() {
     $.post('/api/favorites/', {mapID})
   })
 
-  $favorites.click(function() {
-    $( "#maps-container" ).empty();
-    loadFavoritesFeed();
+  $favorites.click(function(event) {
+    event.preventDefault()
+    $( "#maps-container" ).empty()
+    loadFavoritesFeed()
+    /*
+    $.post('/').done(() => {
+      loadFavoritesFeed();
+    })*/
   })
 
 
