@@ -18,3 +18,5 @@ const addMap = function(map) {
 
   $(`#map-${map.id}`).trigger('click');
 }
+
+

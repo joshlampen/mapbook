@@ -91,7 +91,6 @@ const getFavorites = (user_id) => {
   return db.query(query, [user_id])
   .then(res => console.log(res.rows))
   .catch(err => console.log("Error", err.stack))
-
 }
 
 //Escape function
@@ -110,9 +109,6 @@ const getUserMaps = function(user_id, db) {
   return db.query(query, [user_id])
   .then(data => data.rows)
   .catch(err => console.log('Error', err.stack));
-      // return db.query(query, [userID])
-    // .then(data => res.json(data.rows))
-    // .catch(err => console.log('Error', err.stack));
 };
 
 module.exports = { addUser, findUser, getUserMaps }
