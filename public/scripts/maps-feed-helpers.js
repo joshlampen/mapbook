@@ -42,16 +42,6 @@ const loadFavoritesFeed = function() {
     .then(maps => maps.forEach(map => addMap(map)));
 };
 
-const matchMapName = (mapArray, mapName) => {
-  const searchResult = mapArray.find(map => console.log(map.name, mapName));
-  return searchResult;
-};
-
-const getMyMaps = function(name) {
-  $.get('/api/maps/user/:user')
-    .then(array => matchMapName(array, name));
-};
-
 const loadMyMaps = function() {
   $.get('/api/maps/user/:user')
     .then(res => {
