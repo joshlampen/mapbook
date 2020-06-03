@@ -34,6 +34,8 @@ module.exports = (db) => {
 
     const values = [mapID, markerName, iconURL, lat, lng, userID];
 
+    console.log(values)
+
     return db.query(`
     INSERT INTO markers (map_id, name, icon_url, latitude, longitude, user_id)
     VALUES ($1, $2, $3, $4, $5, $6)

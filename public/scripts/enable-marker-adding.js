@@ -1,7 +1,8 @@
 const enableMarkerAdding = function() {
+
+
   google.maps.event.addDomListener(window, 'load', function() {
 
-    console.log('hello')
 
     const autocomplete = new google.maps.places.Autocomplete(document.getElementById('search'));
 

@@ -43,7 +43,6 @@ app.use(cookieSession({
 const mapsRoutes = require("./routes/maps");
 const markersRoutes = require('./routes/markers');
 const favoritesRoutes = require('./routes/favorites');
-
 const loginRoutes = require("./routes/login");
 const registerRoutes = require('./routes/register');
 
@@ -67,7 +66,6 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
   const userID = req.session.user_id
-  console.log(userID);
   res.json(userID);
 });
 
