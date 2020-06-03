@@ -21,6 +21,7 @@ $(document).ready(function() {
   const $favorites = $('#dropdown').find('a:contains("Favorites")');
   const $myMaps = $('#dropdown').find('a:contains("My Maps")');
 
+  const $mapsFeedHeader = $('#maps-feed').find('h2');
   const $map = $('#maps-container').find('div');
 
   $dropdown.hide();
@@ -140,15 +141,17 @@ $(document).ready(function() {
   // })
 
   $favorites.click(function(event) {
-    event.preventDefault()
-    $( "#maps-container" ).empty()
-    loadFavoritesFeed()
+    event.preventDefault();
+    $mapsFeedHeader.html('Favorites');
+    $( "#maps-container" ).empty();
+    loadFavoritesFeed();
   })
 
   $myMaps.click(function(event) {
-    event.preventDefault()
-    $( "#maps-container" ).empty()
-    loadMyMaps()
+    event.preventDefault();
+    $mapsFeedHeader.html('My Maps');
+    $( "#maps-container" ).empty();
+    loadMyMaps();
   })
   
   google.maps.event.addDomListener(window, 'load', function() {

@@ -6,13 +6,14 @@ module.exports = (db) => {
   router.get('/', (req, res) => {
     const userID = req.session.user_id;
     const query = `
-    SELECT maps.* FROM maps
+    SELECT DISTINCT maps.* FROM maps
     JOIN favorites ON maps.id = map_id
     WHERE favorites.user_id = $1;
-    `
+    `;
+
     return db.query(query, [userID])
-    .then(data => res.json(data.rows))
-    .catch(err => console.log("Error", err.stack))
+      .then(data => res.json(data.rows))
+      .catch(e => e);
   })
 
   //Favorite a map -- Will develop this further once favorites functionality has been setup
@@ -22,11 +23,11 @@ module.exports = (db) => {
     const query =`
     INSERT INTO favorites (user_id, map_id)
     VALUES ($1, $2)
-    `
+    `;
 
     return db.query(query, [userID, mapID])
-    .then(res => {res})
-    .catch(err => console.error("Error", err.stack));
+      .then(res => {res})
+      .catch(e => e);
   })
 
   return router;
