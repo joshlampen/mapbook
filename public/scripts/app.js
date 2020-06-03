@@ -23,7 +23,7 @@ $(document).ready(function() {
   const $map = $('#maps-container').find('div');
 
   loadMapsFeed(); // loads all maps in database to the feed
-  enableMarkerAdding(); // enables adding of markers when a location is searched
+  enableMarkerAdding()// enables adding of markers when a location is searched
   enableMapShow();
 
   $dropdown.hide();

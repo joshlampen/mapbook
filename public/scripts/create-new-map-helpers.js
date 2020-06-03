@@ -18,6 +18,7 @@ const getMapName = function() {
 }
 
 const addMarker = function(marker) {
+
   const html = `
   <div class="new-map-marker" id="marker-${marker.id}">
     <div>
