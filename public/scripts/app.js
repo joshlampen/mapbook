@@ -28,6 +28,7 @@ $(document).ready(function() {
   $registerDiv.hide();
   $mapInfoDiv.hide();
   $newMapContainer.hide();
+  $('#error-maps').hide();
 
   loadMapsFeed(); // loads all maps in database to the feed
   enableMarkerAdding(); // enables adding of markers when a location is searched
@@ -98,6 +99,7 @@ $(document).ready(function() {
 
   $mapForm.submit(function(event) { // upon submission of map name...
     event.preventDefault();
+    $('#error-maps').css('display:none');
 
     const mapName = $('#map-form input:nth-child(1)').val().trim();
     const mapCity = $('#map-form input:nth-child(2)').val().trim();
@@ -106,21 +108,32 @@ $(document).ready(function() {
       console.log(data);
       let mapNames = [];
       data.forEach(map => mapNames.push(map.name))
+      console.log(mapNames)
 
       if (mapNames.includes(mapName)) {
-      //Map name is already in here, do not execute
-        console.log('Is included');
+        $('#error-maps').empty().prepend(`<i class="fas fa-exclamation-circle"></i><div>Map name already exists. Please enter a new one.</div>`)
+        $('#error-maps').slideDown(300)
       } else {
         //If Map name and city is not empty, execute
         if (mapName && mapCity) {
           $mapInfoDiv.hide();
+          $('#error-maps').hide()
           createNewMap($mapForm, $newMapContainer); // hide the map name submission container, show new map container
         } else {
-          //Either Map name or Map City are undefined values, do not execute
+          $('#error-maps').empty().prepend(`<i class="fas fa-exclamation-circle"></i><div>Please enter a name and/or city.</div>`)
+          $('#error-maps').slideDown(300)
         }
       }
     })
   })
+
+  $(document).mouseup(function(e){
+    let errorMaps = $("#error-maps");
+    // If the target of the click isn't the container
+    if(!errorMaps.is(e.target) && errorMaps.has(e.target).length === 0){
+        errorMaps.hide();
+    }
+  });
 
   $cancelCreate.click(function(event) {
     event.preventDefault();
