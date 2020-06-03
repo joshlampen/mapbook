@@ -1,0 +1,76 @@
+@import 'variables';
+
+body {
+  display: flex;
+  background-color: #EEE;
+  flex-direction: column;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+section.map_container {
+  width: 100%;
+  height: 92vh;
+}
+
+h1 {
+  color: #244751;
+}
+
+#map {
+  height: 92vh;
+  width: 80%;
+  position: relative;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0px;
+}
+
+.greyscale {
+  filter: grayscale(100%);
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+#maps-feed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+  border-right: solid 1px #BEBEBE;
+  background-color: $background-white;
+  color: #003366;
+  font-family: $button-font;
+}
+
+.map {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  padding-right: 1em;
+  padding-left: 1em;
+  border-bottom: solid 1px #BEBEBE;
+  color: #003366;
+  font-size: 0.7em;
+  // transition: 0.5s;
+}
