@@ -98,6 +98,8 @@ $(document).ready(function() {
 
   $mapForm.submit(function(event) { // upon submission of map name...
     event.preventDefault();
+    //If Map name and city is not empty, execute
+    console.log()
     $mapInfoDiv.hide();
     createNewMap($mapForm, $newMapContainer); // hide the map name submission container, show new map container
   })
@@ -108,7 +110,9 @@ $(document).ready(function() {
   })
 
   $submitMapButton.click(function() {
-    submitMap($newMapContainer, $markerContainer);
+    if (!$('#marker-container').is(':empty')) {
+      submitMap($newMapContainer, $markerContainer);
+    }
   })
 
   $cancelSubmit.click(function() {
@@ -153,7 +157,7 @@ $(document).ready(function() {
     $( "#maps-container" ).empty();
     loadMyMaps();
   })
-  
+
   google.maps.event.addDomListener(window, 'load', function() {
     $('#maps-container').on( 'click', '.map', function() {
       $('#map').removeClass('greyscale');
