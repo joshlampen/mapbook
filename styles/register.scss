@@ -1,10 +1,38 @@
+@import 'variables';
+
 #register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: absolute;
   top: 70px;
   right: 20px;
+  width: 200px;
+  background-color: $background-white;
+  border: 2px solid $purple;
+}
+
+#register h2 {
+  font-family: $button-font;
+  margin: 10px 0px 10px 0px;
 }
 
 #register-form {
   display: flex;
   flex-direction: column;
 }
+
+#register-form input {
+  margin-bottom: 10px;
+}
+
+#register-form button {
+  margin-top: 10px;
+}
+
+#register a {
+  font-size: 12px;
+  padding: 5px 0px 5px 0px;
+}
+
+

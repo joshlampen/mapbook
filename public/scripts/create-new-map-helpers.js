@@ -69,7 +69,7 @@ const cancelMap = function(newMapContainer) {
   const $markerContainer = newMapContainer.find('#marker-container');
   $markerContainer.empty();
 
-  newMapContainer.fadeOut();
+  newMapContainer.hide();
 
   const mapName = getMapName();
 
