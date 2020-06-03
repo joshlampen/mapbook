@@ -153,7 +153,7 @@ $(document).ready(function() {
     $( "#maps-container" ).empty();
     loadMyMaps();
   })
-  
+
   google.maps.event.addDomListener(window, 'load', function() {
     $('#maps-container').on( 'click', '.map', function() {
       $('#map').removeClass('greyscale');
