@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 
 //db functions
 
@@ -56,7 +56,8 @@ const findUser = (email, db) => {
 const addUser = (user, db) => {
   const name = user.name;
   const email = user.email;
-  const password = bcrypt.hashSync(user.password, 10);
+  const password = user.password;
+  // const password = bcrypt.hashSync(user.password, 10);
   const query = `
   INSERT INTO users (name, email, password)
   VALUES ($1, $2, $3)
