@@ -11,6 +11,13 @@ router.get('/', (req, res) => {
     res.render('registration');
   })
 
+router.get('/all', (req, res) => {
+  return db.query(`
+  SELECT * FROM users
+  `)
+  .then(data => res.json(data.rows))
+})
+
 router.post("/" , (req, res) => {
 
   // // Here I want to verify if the user is already in the db, currently stuck
@@ -19,7 +26,7 @@ router.post("/" , (req, res) => {
   //   res.send('Already taken');
   //   return;
   // })
-
+  console.log(req.body)
   addUser(req.body, db)
   //Here to the end of the function was taken from LightBnB
     .then(user => {
