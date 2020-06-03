@@ -1,29 +1,5 @@
 // const bcrypt = require('bcryptjs');
 
-//db functions
-
-//Helper function - Take the array of lat and long values and convert to geoJson
-const toGeoJson = array => {
-  let geoJson = {
-    "type": "User destinations",
-    "features": []
-  }
-
-  array.forEach(queryObj => {
-    let featuresObject = {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": []
-      }
-    }
-    featuresObject.geometry.coordinates = [queryObj.latitude, queryObj.longitude];
-    toGeoJson.features.push(featuresObject);
-  })
-  return geoJson;
-};
-
 //Get markers and load to map -- Incomplete, need to connect to db and append dynamically as a script
 const getMarkers = mapId => {
   const query = `
@@ -111,5 +87,6 @@ const getUserMaps = function(user_id, db) {
   .then(data => data.rows)
   .catch(err => console.log('Error', err.stack));
 };
+
 
 module.exports = { addUser, findUser, getUserMaps }

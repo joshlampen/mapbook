@@ -98,8 +98,16 @@ $(document).ready(function() {
 
   $mapForm.submit(function(event) { // upon submission of map name...
     event.preventDefault();
-    $mapInfoDiv.hide();
-    createNewMap($mapForm, $newMapContainer); // hide the map name submission container, show new map container
+
+    const mapName = $('#map-form input:nth-child(1)').val().trim();
+    const mapCity = $('#map-form input:nth-child(2)').val().trim();
+
+    console.log(getMyMaps(mapName));
+    //If Map name and city is not empty, execute
+    if (mapName && mapCity) {
+      $mapInfoDiv.hide();
+      createNewMap($mapForm, $newMapContainer); // hide the map name submission container, show new map container
+    }
   })
 
   $cancelCreate.click(function(event) {
@@ -108,7 +116,9 @@ $(document).ready(function() {
   })
 
   $submitMapButton.click(function() {
-    submitMap($newMapContainer, $markerContainer);
+    if (!$('#marker-container').is(':empty')) {
+      submitMap($newMapContainer, $markerContainer);
+    }
   })
 
   $cancelSubmit.click(function() {
