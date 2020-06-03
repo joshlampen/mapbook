@@ -98,10 +98,15 @@ $(document).ready(function() {
 
   $mapForm.submit(function(event) { // upon submission of map name...
     event.preventDefault();
+
+    const mapName = $('#map-form input:nth-child(1)').val().trim();
+    const mapCity = $('#map-form input:nth-child(2)').val().trim();
+
     //If Map name and city is not empty, execute
-    console.log()
-    $mapInfoDiv.hide();
-    createNewMap($mapForm, $newMapContainer); // hide the map name submission container, show new map container
+    if (mapName && mapCity) {
+      $mapInfoDiv.hide();
+      createNewMap($mapForm, $newMapContainer); // hide the map name submission container, show new map container
+    }
   })
 
   $cancelCreate.click(function(event) {
