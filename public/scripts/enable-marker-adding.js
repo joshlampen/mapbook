@@ -1,16 +1,12 @@
 const enableMarkerAdding = function() {
-
-
   google.maps.event.addDomListener(window, 'load', function() {
-
-
     const autocomplete = new google.maps.places.Autocomplete(document.getElementById('search'));
 
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
       const mapName = getMapName();
 
       $.get(`/api/maps/${mapName}`)
-        .done(res => {
+        .then(res => {
           const mapID = res[0].id;
           const place = autocomplete.getPlace();
 
@@ -28,16 +24,16 @@ const enableMarkerAdding = function() {
           };
 
           $.post('/api/markers/', values)
-            .done(() => {
+            .then(() => {
               $.get('/api/markers/', { mapID })
-                .done(res => {
+                .then(res => {
                   const marker = res[0];
 
                   addMarker(marker);
                   enableMarkerRemoval(marker.id, marker.map_id);
                 });
-            })
-        })
-    })
-  })
+            });
+        });
+    });
+  });
 };

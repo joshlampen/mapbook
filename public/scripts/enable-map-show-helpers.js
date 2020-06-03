@@ -2,10 +2,10 @@ const showMap = function(mapID) {
   $('#marker-container').empty();
 
   $.get('/api/markers/', { mapID })
-    .done(markers => {
+    .then(markers => {
       displayMarkers(markers);
-    })
-}
+    });
+};
 
 const displayMarkers = markers => {
   const options = {
@@ -20,7 +20,6 @@ const displayMarkers = markers => {
   const locations = [];
 
   markers.forEach(marker => {
-
     const googleMarker = new google.maps.Marker({
       map: map,
       title: marker.name,
@@ -32,11 +31,10 @@ const displayMarkers = markers => {
     const request = {
       query: marker.name,
       fields: ['formatted_address']
-    }
+    };
 
     service.findPlaceFromQuery(request, function(results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-
         const googleMarker = new google.maps.Marker({
           map: map,
           title: marker.name,
@@ -52,7 +50,7 @@ const displayMarkers = markers => {
           </div>
           <p>${googleMarker.address}</p>
         </div>
-        `
+        `;
 
         const infoWindow = new google.maps.InfoWindow({
           content: html
@@ -60,21 +58,21 @@ const displayMarkers = markers => {
 
         googleMarker.addListener('mouseover', function() {
           infoWindow.open(map, googleMarker);
-        })
+        });
 
         googleMarker.addListener('mouseout', function() {
           infoWindow.close(map, googleMarker);
-        })
+        });
 
         // infoWindow.open(map, googleMarker);
         locations.push(googleMarker);
         bounds.extend(googleMarker.position);
       };
-    })
+    });
 
     locations.push(googleMarker);
     bounds.extend(googleMarker.position); // Centers the map such that we can see all the markers
-  })
+  });
 
   map.fitBounds(bounds);
-}
+};

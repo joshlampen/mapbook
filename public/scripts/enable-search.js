@@ -1,5 +1,4 @@
 const enableSearch = function(searchBox, map) {
-
   // change map bounds upon location search
   map.addListener('bounds_changed', function() {
     searchBox.setBounds(map.getBounds());
@@ -12,7 +11,7 @@ const enableSearch = function(searchBox, map) {
 
     if (places.length === 0) {
       return;
-    }
+    };
 
     // for each marker that is found from search...
     markers.forEach(function(marker) {
@@ -28,7 +27,7 @@ const enableSearch = function(searchBox, map) {
     places.forEach(function(place) {
       if (!place.geometry) {
         return;
-      }
+      };
 
       // create a new marker with relevant info
       markers.push(new google.maps.Marker({
@@ -43,18 +42,8 @@ const enableSearch = function(searchBox, map) {
         bounds.union(place.geometry.viewport);
       } else {
         bounds.extend(place.geometry.location);
-      }
+      };
     });
-
-    markers.forEach(function(marker) {
-      const text = `${marker.title} is located at ${marker.address}`
-      const infowindow = new google.maps.InfoWindow({
-        content: text
-      });
-      marker.addListener('click', function() {
-        infowindow.open(map, marker);
-      })
-    })
 
     map.fitBounds(bounds);
   });

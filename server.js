@@ -9,9 +9,7 @@ const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
-// const bcrypt     = require('bcrypt')
 const cookieSession = require('cookie-session')
-
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -43,7 +41,6 @@ app.use(cookieSession({
 const mapsRoutes = require("./routes/maps");
 const markersRoutes = require('./routes/markers');
 const favoritesRoutes = require('./routes/favorites');
-const loginRoutes = require("./routes/login");
 const registerRoutes = require('./routes/register');
 
 // Mount all resource routes
@@ -51,8 +48,6 @@ const registerRoutes = require('./routes/register');
 app.use("/api/maps", mapsRoutes(db));
 app.use("/api/markers", markersRoutes(db));
 app.use('/api/favorites', favoritesRoutes(db));
-
-app.use("/users/login", loginRoutes(db));
 app.use('/users/register', registerRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
@@ -61,11 +56,11 @@ app.use('/users/register', registerRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
-  res.render("index")
+  res.render("index");
 });
 
 app.post("/", (req, res) => {
-  const userID = req.session.user_id
+  const userID = req.session.user_id;
   res.json(userID);
 });
 

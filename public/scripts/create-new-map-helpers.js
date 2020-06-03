@@ -4,21 +4,20 @@ const createNewMap = function(mapForm, newMapContainer) {
   const subHeader = newMapContainer.find('h4');
 
   $.post('/api/maps/', entry)
-    .done(res => {
-      const mapName = res[0].name
-      const city = res[0].city
+    .then(res => {
+      const mapName = res[0].name;
+      const city = res[0].city;
       header.html(mapName);
       subHeader.html(city);
       newMapContainer.fadeIn();
-    })
+    });
 };
 
 const getMapName = function() {
   return $('#new-map').find('h2').html();
-}
+};
 
 const addMarker = function(marker) {
-
   const html = `
   <div class="new-map-marker" id="marker-${marker.id}">
     <div>
@@ -31,25 +30,25 @@ const addMarker = function(marker) {
 
   $('#marker-container').prepend(html);
   $('#search').val('');
-}
+};
 
 const enableMarkerRemoval = function(markerID, mapID) {
-  const $div = $(`#marker-${markerID}`)
+  const $div = $(`#marker-${markerID}`);
   const $button = $div.find(`#remove-marker-${markerID}`);
 
-  $button.click(function() {
+  $button.click(function(event) {
     event.preventDefault();
 
     const values = {
       markerID,
       mapID
-    }
+    };
 
     $.post('/api/markers/delete', values);
 
     $div.remove();
-  })
-}
+  });
+};
 
 const submitMap = function(newMapContainer, markerContainer) {
   event.preventDefault();
@@ -59,11 +58,11 @@ const submitMap = function(newMapContainer, markerContainer) {
   const mapName = getMapName();
 
   $.get(`/api/maps/${mapName}`)
-    .done(res => {
+    .then(res => {
       const map = res[0];
       addMap(map);
-    })
-}
+    });
+};
 
 const cancelMap = function(newMapContainer) {
   event.preventDefault();
@@ -75,8 +74,8 @@ const cancelMap = function(newMapContainer) {
   const mapName = getMapName();
 
   $.get(`/api/maps/${mapName}`)
-    .done(res => {
-      const mapID = res[0].id
-      $.post('/api/maps/delete', { mapID })
-    })
-}
+    .then(res => {
+      const mapID = res[0].id;
+      $.post('/api/maps/delete', { mapID });
+    });
+};

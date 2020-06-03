@@ -1,50 +1,31 @@
-// const bcrypt = require('bcryptjs');
-
-//Get markers and load to map -- Incomplete, need to connect to db and append dynamically as a script
-const getMarkers = mapId => {
-  const query = `
-  SELECT latitude, longitude FROM markers
-  WHERE map_id = $1
-  `
-  return db.query(query, [mapId])
-  .then(data => {
-    //Formats into geoJson, but this needs to be appended dynamically as a script
-    map.data.addGeoJson(toGeoJson(data.rows))
-  })
-  .catch(err => {
-    res
-      .status(500)
-      .json({ error: err.message });
-  });
-};
-
 //Fetch user info
 const findUser = (email, db) => {
   const query = `
   SELECT * FROM users
   WHERE email = $1
-  `
+  `;
+
   return db.query(query, [email])
   .then(res => res.rows[0])
-  .catch(err => console.error("User does not exist", err.stack));
-}
+  .catch(err => err);
+};
 
 const addUser = (user, db) => {
-  const name = user.name;
+  // const name = user.name;
   const email = user.email;
-  const password = user.password;
+  // const password = user.password;
   // const password = bcrypt.hashSync(user.password, 10);
+
   const query = `
-  INSERT INTO users (name, email, password)
-  VALUES ($1, $2, $3)
+  INSERT INTO users (email)
+  VALUES ($1)
   RETURNING *
-  `
+  `;
 
-  return db.query(query, [name, email, password])
-  .then((res) => (res.rows[0]))
-  .catch(err => console.error("Error", err.stack));
-}
-
+  return db.query(query, [email])
+  .then(res => res.rows[0])
+  .catch(err => err);
+};
 
 //Add favourites
 const favorite = (userId, mapId) => {
@@ -55,26 +36,19 @@ const favorite = (userId, mapId) => {
 
   return db.query(query, [userId, mapId])
   .then()
-  .catch(err => console.error("Error", err.stack));
-}
+  .catch(err => err);
+};
 
 //getFavorites
 const getFavorites = (user_id) => {
   const query = `
   SELECT * FROM favorites
   WHERE user_id = $1
-  `
+  `;
 
   return db.query(query, [user_id])
-  .then(res => console.log(res.rows))
-  .catch(err => console.log("Error", err.stack))
-}
-
-//Escape function
-const escape =  function(str) {
-  let div = document.createElement('div');
-  div.appendChild(document.createTextNode(str));
-  return div.innerHTML;
+  .then(res => res.rows)
+  .catch(err => err);
 };
 
 //Get user's maps
@@ -82,11 +56,12 @@ const getUserMaps = function(user_id, db) {
   const query = `
   SELECT * FROM maps
   WHERE user_id = $1
-  `
+  `;
+
   return db.query(query, [user_id])
   .then(data => data.rows)
   .catch(err => console.log('Error', err.stack));
 };
 
 
-module.exports = { addUser, findUser, getUserMaps }
+module.exports = { addUser, findUser, getUserMaps };

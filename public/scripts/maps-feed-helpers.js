@@ -1,16 +1,16 @@
 const loadMapsFeed = function() {
   $.get('/api/maps/')
-    .done(maps => maps.forEach(map => addMap(map)));
-}
+    .then(maps => maps.forEach(map => addMap(map)));
+};
 
 const addMap = function(map) {
   $.get('/api/favorites/')
-    .done(favoritedMaps => {
+    .then(favoritedMaps => {
       let html;
-      const favArray = []
+      const favArray = [];
       favoritedMaps.forEach(favoritedMap => {
         favArray.push(favoritedMap.id);
-      })
+      });
 
       if (favArray.includes(map.id)) {
         html = `
@@ -30,40 +30,35 @@ const addMap = function(map) {
           </div>
           <a href="" class='favorite-map' id="favorite-map-${map.id}"><i class="far fa-heart"></i></a>
         </div>`;
-      }
+      };
 
       $('#maps-container').prepend(html);
       $(`#map-${map.id}`).trigger('click');
-    })
-}
+    });
+};
 
 const loadFavoritesFeed = function() {
   $.get('/api/favorites/')
-    .done(maps => maps.forEach(map => addMap(map)));
-}
+    .then(maps => maps.forEach(map => addMap(map)));
+};
 
 const matchMapName = (mapArray, mapName) => {
   const searchResult = mapArray.find(map => console.log(map.name, mapName));
   return searchResult;
-}
+};
 
 const getMyMaps = function(name) {
   $.get('/api/maps/user/:user')
-  .then(array => matchMapName(array, name))
-}
+    .then(array => matchMapName(array, name));
+};
 
 const loadMyMaps = function() {
-  $.get('/api/maps/user/:user', function (data) {
-    if (!data) {
-      return;
-    }
-    data.forEach(map => addMap(map))
-  })
-}
+  $.get('/api/maps/user/:user')
+    .then(res => {
+      if (!res) {
+        return;
+      };
 
-const escape =  function(str) {
-  let div = document.createElement('div');
-  div.appendChild(document.createTextNode(str));
-  return div.innerHTML;
-}
-
+      res.forEach(map => addMap(map));
+    });
+};

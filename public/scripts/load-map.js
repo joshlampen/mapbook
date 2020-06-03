@@ -1,5 +1,4 @@
 // this script loads the initial empty map
-
 const loadMap = function() {
   let map, infoWindow;
 
@@ -31,7 +30,7 @@ const loadMap = function() {
     });
   } else {
     handleLocationError('No geolocation available', map.center());
-  }
+  };
 
   // load search bar
   const input = document.getElementById('search');
