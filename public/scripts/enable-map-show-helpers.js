@@ -1,12 +1,3 @@
-const enableMapShow = function() {
-  google.maps.event.addDomListener(window, 'load', function() {
-    $('#maps-container').on( 'click', '.map', function() {
-      const mapID = $(this).attr('id').slice(4);
-      showMap(mapID);
-    });
-  })
-};
-
 const showMap = function(mapID) {
   $('#marker-container').empty();
 
