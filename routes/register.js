@@ -7,10 +7,6 @@ const cookieSession = require('cookie-session')
 
 module.exports = (db) => {
 
-router.get('/', (req, res) => {
-    res.render('registration');
-  })
-
 router.post("/" , (req, res) => {
 
   // // Here I want to verify if the user is already in the db, currently stuck
@@ -26,15 +22,15 @@ router.post("/" , (req, res) => {
       if (!user) {
         res.send({error: "error"});
         return;
-      }
+      };
       req.session.user_id = user.id;
-      res.redirect('/')
-    })
+      res.redirect('/');
+    });
     // .catch(e => res.send(e));
-  })
+  });
 
   return router;
-}
+};
 
 
 

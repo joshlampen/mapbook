@@ -8,13 +8,14 @@ module.exports = (db) => {
     const query = `
     SELECT DISTINCT maps.* FROM maps
     JOIN favorites ON maps.id = map_id
-    WHERE favorites.user_id = $1;
+    WHERE favorites.user_id = $1
+    ORDER BY maps.date_created;
     `;
 
     return db.query(query, [userID])
       .then(data => res.json(data.rows))
       .catch(e => e);
-  })
+  });
 
   //Favorite a map -- Will develop this further once favorites functionality has been setup
   router.post('/', (req, res) => {
@@ -23,12 +24,13 @@ module.exports = (db) => {
     const query =`
     INSERT INTO favorites (user_id, map_id)
     VALUES ($1, $2)
+    RETURNING *;
     `;
 
     return db.query(query, [userID, mapID])
-      .then(res => {res})
+      .then(data => res.json(data))
       .catch(e => e);
-  })
+  });
 
   return router;
 };
