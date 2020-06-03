@@ -10,9 +10,10 @@ nav {
   padding: 0px 20px 0px 20px;
 }
 
-nav span {
+nav span a {
   font-family: $logo-font;
   font-size: 30px;
+  color: white;
 }
 
 .nav-buttons {
