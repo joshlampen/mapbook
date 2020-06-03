@@ -23,13 +23,13 @@ const addMap = function(map) {
           </div>`;
       } else {
         html = `
-        <div class="map" id="map-${map.id}">
-          <div class="title-container">
-            <h3>${map.name}</h3>
-            <h5>${map.city}</h5>
-          </div>
-          <a href="" class='favorite-map' id="favorite-map-${map.id}"><i class="far fa-heart"></i></a>
-        </div>`;
+          <div class="map" id="map-${map.id}">
+            <div class="title-container">
+              <h3>${map.name}</h3>
+              <h5>${map.city}</h5>
+            </div>
+            <a href="" class='favorite-map' id="favorite-map-${map.id}"><i class="far fa-heart"></i></a>
+          </div>`;
       };
 
       $('#maps-container').prepend(html);

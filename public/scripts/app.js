@@ -7,6 +7,7 @@ $(document).ready(function() {
 
   const $registerDiv = $('#register');
   const $registerForm = $registerDiv.find('#register-form');
+  const $registerInput = $registerDiv.find('input');
   const $cancelRegister = $registerDiv.find('a');
 
   const $mapInfoDiv = $('#enter-map-info');
@@ -105,7 +106,6 @@ $(document).ready(function() {
     const mapCity = $('#map-form input:nth-child(2)').val().trim();
 
     $.get('/api/maps/user/:user', function(data) {
-      console.log(data);
       let mapNames = [];
       data.forEach(map => mapNames.push(map.name))
       console.log(mapNames)
@@ -152,11 +152,24 @@ $(document).ready(function() {
 
   $registerForm.submit(function(event) {
     event.preventDefault();
-    const values = $registerForm.serialize();
 
-    $.post('/users/register/', values);
-    $('#map').removeClass('greyscale');
-    $registerDiv.hide();
+    const values = `email=${$registerInput.val()}`
+
+    if ($registerInput.val().includes(' ') || !$registerInput.val().includes('@') || !$registerInput.val().includes('.com') || !$registerInput.val()) {
+      return;
+      //Either had whitespace, did not include the '@', did not have '.com or was an empty string
+    } else {
+      $.get('/users/register/all', function (data) {
+        if (data.find(obj => obj.email === $registerInput.val())) {
+          return;
+          //Email already taken, do nothing
+        }
+        $.post('/users/register/', values);
+        $('#map').removeClass('greyscale');
+        $registerDiv.hide();
+      })
+    }
+
   });
 
   $cancelRegister.click(function(event) {
@@ -165,9 +178,21 @@ $(document).ready(function() {
     $registerForm.find('input').val('');
   });
 
-  $('#maps-container').on('click', '.favorite-map', function() {
+  $('#maps-container').on('click', '.favorite-map', function(event) {
+    event.preventDefault();
     const mapID = $(this).attr('id').slice(13);
-    $.post('/api/favorites/', {mapID});
+    $.post('/')
+      .then(() => {
+        $.post('/api/favorites/', {mapID})
+          .then(res => {
+            $('#maps-container').empty();
+            loadMapsFeed();
+          });
+      })
+      .catch(() => {
+        $('#map').addClass('greyscale');
+        $registerDiv.fadeIn();
+      })
   });
 
   $favorites.click(function(event) {
@@ -194,4 +219,11 @@ $(document).ready(function() {
       showMap(mapID);
     });
   });
+
+  $('.home').click(function(event) {
+    event.preventDefault();
+    $mapsFeedHeader.html('Maps');
+    $('#maps-container').empty();
+    loadMapsFeed();
+  })
 });

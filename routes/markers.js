@@ -4,7 +4,7 @@ const router  = express.Router();
 module.exports = (db) => {
   router.get('/', (req, res) => {
     const mapID = req.query.mapID;
-    const values = [mapID]
+    const values = [mapID];
 
     return db.query(`
     SELECT *
@@ -21,7 +21,7 @@ module.exports = (db) => {
           .status(500)
           .json({ error: err.message });
       });
-  })
+  });
 
   //Upon clicking a suggested address, save to db
   router.post('/', (req, res) => {
@@ -33,8 +33,6 @@ module.exports = (db) => {
     const userID = req.session.user_id;
 
     const values = [mapID, markerName, iconURL, lat, lng, userID];
-
-    console.log(values)
 
     return db.query(`
     INSERT INTO markers (map_id, name, icon_url, latitude, longitude, user_id)
@@ -57,8 +55,8 @@ module.exports = (db) => {
     WHERE id = $1
     AND map_id = $2
     AND user_id = $3;
-    `, values)
-  })
+    `, values);
+  });
 
   return router;
 };
