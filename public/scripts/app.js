@@ -102,12 +102,27 @@ $(document).ready(function() {
     const mapName = $('#map-form input:nth-child(1)').val().trim();
     const mapCity = $('#map-form input:nth-child(2)').val().trim();
 
-    console.log(getMyMaps(mapName));
-    //If Map name and city is not empty, execute
-    if (mapName && mapCity) {
-      $mapInfoDiv.hide();
-      createNewMap($mapForm, $newMapContainer); // hide the map name submission container, show new map container
-    }
+    // const result = getMyMaps(mapName)
+    // console.log(result)
+
+    $.get('/api/maps/user/:user', function(data) {
+      console.log(data);
+      let mapNames = [];
+      data.forEach(map => mapNames.push(map.name))
+
+      if (mapNames.includes(mapName)) {
+        console.log('Is included');
+        //Map name is already in here, do not execute
+      } else {
+        //If Map name and city is not empty, execute
+        if (mapName && mapCity) {
+          $mapInfoDiv.hide();
+          createNewMap($mapForm, $newMapContainer); // hide the map name submission container, show new map container
+        } else {
+          //Either Map name or Map City are undefined values, do not execute
+        }
+      }
+    })
   })
 
   $cancelCreate.click(function(event) {

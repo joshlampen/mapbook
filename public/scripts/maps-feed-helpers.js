@@ -42,25 +42,6 @@ const loadFavoritesFeed = function() {
     .done(maps => maps.forEach(map => addMap(map)));
 }
 
-const matchMapName = (mapArray, mapName) => {
-  const searchResult = mapArray.find(map => console.log(map.name, mapName));
-  return searchResult;
-}
-
-const getMyMaps = function(name) {
-  $.get('/api/maps/user/:user')
-  .then(array => matchMapName(array, name))
-}
-
-const loadMyMaps = function() {
-  $.get('/api/maps/user/:user', function (data) {
-    if (!data) {
-      return;
-    }
-    data.forEach(map => addMap(map))
-  })
-}
-
 const escape =  function(str) {
   let div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
