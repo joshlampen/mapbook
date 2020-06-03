@@ -7,16 +7,12 @@ const cookieSession = require('cookie-session')
 
 module.exports = (db) => {
 
-router.get('/', (req, res) => {
-    res.render('registration');
-  })
-
 router.get('/all', (req, res) => {
   return db.query(`
   SELECT * FROM users
   `)
-  .then(data => res.json(data.rows))
-})
+  .then(data => res.json(data.rows));
+});
 
 router.post("/" , (req, res) => {
 
@@ -33,15 +29,15 @@ router.post("/" , (req, res) => {
       if (!user) {
         res.send({error: "error"});
         return;
-      }
+      };
       req.session.user_id = user.id;
-      res.redirect('/')
-    })
+      res.redirect('/');
+    });
     // .catch(e => res.send(e));
-  })
+  });
 
   return router;
-}
+};
 
 
 

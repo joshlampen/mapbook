@@ -8,7 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 const cookieSession = require('cookie-session');
-const { getUserMaps } = require('../db/dbFunctions')
+const { getUserMaps } = require('../db/dbFunctions');
 
 module.exports = (db) => {
   router.get('/', (req, res) => {
@@ -18,12 +18,12 @@ module.exports = (db) => {
     ORDER BY date_created;
     `)
       .then(data => res.json(data.rows));
-  })
+  });
 
   router.post('/', (req, res) => {
     const mapName = req.body.name;
     const city = req.body.city;
-    const userID = req.session.user_id
+    const userID = req.session.user_id;
 
     const values = [mapName, city, userID];
 
@@ -33,7 +33,7 @@ module.exports = (db) => {
     RETURNING *;
     `, values)
       .then(data => res.json(data.rows));
-  })
+  });
 
   router.post('/delete', (req, res) => {
     const mapID = req.body.mapID;
@@ -44,14 +44,14 @@ module.exports = (db) => {
     return db.query(`
     DELETE FROM maps
     WHERE id = $1 AND user_id = $2;
-        `, values)
-  })
+        `, values);
+  });
 
   router.get('/:mapName', (req, res) => { // gets id based on name and user_id
     const mapName = req.params.mapName;
     const userID = req.session.user_id;
 
-    const values = [mapName, userID]
+    const values = [mapName, userID];
 
     return db.query(`
     SELECT *
@@ -60,7 +60,7 @@ module.exports = (db) => {
     AND user_id = $2;
     `, values)
       .then(data => res.json(data.rows));
-  })
+  });
 
   //Get maps for a specific user
   router.get('/user/:user', (req, res) => {
@@ -68,8 +68,7 @@ module.exports = (db) => {
 
     getUserMaps(userID, db)
     .then(data => res.json(data));
-  })
+  });
 
   return router;
-
 };

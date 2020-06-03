@@ -11,7 +11,8 @@ const findUser = (email, db) => {
 };
 
 const addUser = (user, db) => {
-  // const name = user.name;
+  const firstName = user.firstname;
+  const lastName = user.lastname;
   const email = user.email;
   // const password = user.password;
   // const password = bcrypt.hashSync(user.password, 10);
