@@ -12,6 +12,15 @@ router.get('/', (req, res) => {
   .then(data => res.json(data.rows));
 });
 
+router.get('/name', (req, res) => {
+
+  return db.query(`
+  SELECT name FROM users
+  WHERE id = $1
+  `, [req.session.user_id])
+  .then(user => res.json(user.rows))
+})
+
 router.post('/' , (req, res) => {
   addUser(req.body, db)
     .then(user => {
