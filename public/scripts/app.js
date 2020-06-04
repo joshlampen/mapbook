@@ -7,7 +7,6 @@ $(document).ready(function() {
 
   const $registerDiv = $('#register');
   const $registerForm = $registerDiv.find('#register-form');
-  const $registerInput = $registerDiv.find('input');
   const $cancelRegister = $registerDiv.find('a');
 
   const $mapInfoDiv = $('#enter-map-info'); // for submitting map name and city
@@ -33,6 +32,7 @@ $(document).ready(function() {
 
   loadMapsFeed(); // loads all maps in the database to the feed
   enableMarkerAdding(); // enables adding of markers when a location is searched
+  loggedName();
 
   $profileButton.click(function(event) {
     event.preventDefault();
@@ -159,15 +159,18 @@ $(document).ready(function() {
   $registerForm.submit(function(event) {
     event.preventDefault();
 
-    const values = `email=${$registerInput.val()}`
+    const userName = $registerDiv.find('#user-name').serialize().slice(5);
+    const email = $registerDiv.find('#email').serialize().slice(6).replace('%40', '@');
 
-    if ($registerInput.val().includes(' ') || !$registerInput.val().includes('@') || !$registerInput.val().includes('.com') || !$registerInput.val()) {
+    const values = $registerForm.serialize();
+
+    if (userName.length < 1 || email.length < 1 || !email.includes('@') || !email.includes('.com')) {
       $('#error-message').addClass('register-error');
-      $('#error-message').find('p').html('Please enter a valid email.');
+      $('#error-message').find('p').html('Please enter a valid name and email.');
       $('#error-message').slideDown(300);
     } else {
-      $.get('/users/register/', function (data) {
-        if (data.find(obj => obj.email === $registerInput.val())) {
+      $.get('/users/register/', function(data) {
+        if (data.find(obj => obj.email === email)) {
           $('#error-message').addClass('register-error');
           $('#error-message').find('p').html('Email is already in database.');
           $('#error-message').slideDown(300);
@@ -175,7 +178,9 @@ $(document).ready(function() {
           $('#map').removeClass('greyscale');
           $registerDiv.hide();
           $('#error-message').hide();
-          $.post('/users/register/', values);
+          $.post('/users/register/', values)
+          .then(() => loggedName());
+
         }
       })
     }
@@ -206,6 +211,15 @@ $(document).ready(function() {
         $registerDiv.fadeIn();
       })
   });
+
+  $('#maps-container').on('click', '.edit-map', function(event) {
+    event.preventDefault();
+    if ($newMapContainer.is(':visible')) {
+      $newMapContainer.hide();
+    }
+    const mapID = $(this).attr('id').slice(9);
+    editMap(mapID, $newMapContainer);
+  })
 
   $favorites.click(function(event) {
     event.preventDefault();

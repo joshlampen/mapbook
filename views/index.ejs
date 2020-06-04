@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="/styles/register.css" type="text/css" />
     <link rel="stylesheet" href="/styles/feed.css" type="text/css" />
     <link rel="stylesheet" href="/styles/markers.css" type="text/css" />
-    <link rel="stylesheet" media="screen and (max-width:500px)" href="/styles/phonelayout.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (max-width:750px)" href="/styles/phonelayout.css" type="text/css" />
 
 
     <!-- External JS -->
@@ -67,7 +67,8 @@
       <section id='register'>
         <h2>Register</h2>
         <form id="register-form">
-          <input type="text" name="email" placeholder="Email"></input>
+          <input id="user-name" type="text" name="name" placeholder="Name"></input>
+          <input id="email" type="text" name="email" placeholder="Email"></input>
           <button type="submit" id="register-button">Submit</button>
         </form>
         <a href="">Cancel</a>
@@ -88,13 +89,17 @@
         <p></p> <!-- dynamically fills with error message when called -->
       </section>
 
+      <section id='logged-name'>
+
+      </section>
+
       <section id="new-map">
         <h2></h2> <!-- h2 and h4 tags populate with user entered map name and city -->
         <h4></h4>
         <input class="form-control" id="search" type="text" placeholder="Search for locations" />
         <div id="marker-container"></div>
         <button id="submit-map-button">Submit</button>
-        <a href="" id="cancel-create">Cancel</a>
+        <a href="" id="cancel-create"></a>
       </section>
     </main>
   </body>

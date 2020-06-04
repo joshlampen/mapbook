@@ -2,6 +2,7 @@ const createNewMap = function(mapForm, newMapContainer) {
   const entry = mapForm.serialize();
   const header = newMapContainer.find('h2');
   const subHeader = newMapContainer.find('h4');
+  newMapContainer.find('#cancel-create').html('Cancel');
 
   $.post('/api/maps/', entry)
     .then(res => {
@@ -12,6 +13,31 @@ const createNewMap = function(mapForm, newMapContainer) {
       newMapContainer.fadeIn();
     });
 };
+
+const editMap = function(mapID, newMapContainer) {
+  const mapName = $(`#map-${mapID}`).find('h3').html();
+  const header = newMapContainer.find('h2');
+  const subHeader = newMapContainer.find('h4');
+  newMapContainer.find('#cancel-create').html('Delete');
+
+  $.get(`/api/maps/${mapName}`)
+    .then(res => {
+      const city = res[0].city;
+      header.html(mapName);
+      subHeader.html(city);
+      newMapContainer.fadeIn();
+      
+      $.get('/api/markers/', { mapID })
+        .then(res => {
+          res.forEach(marker => {
+            addMarker(marker)
+            enableMarkerRemoval(marker.id, marker.map_id);
+            });
+          
+          loadMap(); // after loading all the markers into the container, set the google map to default empty
+        });
+    });
+}
 
 const getMapName = function() {
   return $('#new-map').find('h2').html();
@@ -59,8 +85,13 @@ const submitMap = function(newMapContainer, markerContainer) {
 
   $.get(`/api/maps/${mapName}`)
     .then(res => {
-      const map = res[0];
-      addMap(map);
+      if ($('#cancel-create').html() === 'Delete') {
+        $('#maps-container').empty();
+        loadMapsFeed();
+      } else {
+        const map = res[0];
+        addMap(map);
+      };
     });
 };
 
@@ -77,5 +108,10 @@ const cancelMap = function(event, newMapContainer) {
     .then(res => {
       const mapID = res[0].id;
       $.post('/api/maps/delete', { mapID });
+
+      if ($('#cancel-create').html() === 'Delete') {
+        $('#maps-container').empty();
+        loadMapsFeed();
+      };
     });
 };
