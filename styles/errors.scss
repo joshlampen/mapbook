@@ -1,0 +1,41 @@
+@import 'variables';
+
+.error-message {
+  position: absolute;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: rgba(228, 35, 67, 0.788);
+  font-size: $error-font;
+  color: white;
+
+  i {
+    margin-top: 0.5em;
+    font-size: 20px;
+  }
+
+  p {
+    margin: 0.5em 0px 0px 0px;
+    width: 70%;
+    height: 100%;
+  }
+}
+
+.map-name-error {
+  top: 255px;
+  right: 20px;
+  width: 200px;
+}
+
+.register-error {
+  top: 221px;
+  right: 20px;
+  width: 200px;
+}
+
+.new-map-error {
+  top: 470px;
+  right: 20px;
+  width: 400px;
+}

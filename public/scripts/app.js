@@ -29,7 +29,7 @@ $(document).ready(function() {
   $registerDiv.hide();
   $mapInfoDiv.hide();
   $newMapContainer.hide();
-  $('#error-maps').hide();
+  $('#error-message').hide();
 
   loadMapsFeed(); // loads all maps in database to the feed
   enableMarkerAdding(); // enables adding of markers when a location is searched
@@ -44,7 +44,7 @@ $(document).ready(function() {
         };
 
         if ($newMapContainer.is(':visible')) {
-          cancelMap($newMapContainer);
+          cancelMap(event, $newMapContainer);
         };
 
         if ($dropdown.is(':hidden')) {
@@ -76,7 +76,7 @@ $(document).ready(function() {
 
         if ($newMapContainer.is(":visible")) {
           $mapInfoDiv.hide();
-          cancelMap($newMapContainer);
+          cancelMap(event, $newMapContainer);
         };
 
         if ($mapInfoDiv.is(":hidden")) {
@@ -100,8 +100,6 @@ $(document).ready(function() {
 
   $mapForm.submit(function(event) { // upon submission of map name...
     event.preventDefault();
-    $('#error-maps').css('display:none');
-
     const mapName = $('#map-form input:nth-child(1)').val().trim();
     const mapCity = $('#map-form input:nth-child(2)').val().trim();
 
@@ -110,29 +108,34 @@ $(document).ready(function() {
       data.forEach(map => mapNames.push(map.name))
       console.log(mapNames)
 
-      if (mapNames.includes(mapName)) {
-        $('#error-maps').empty().prepend(`<i class="fas fa-exclamation-circle"></i><div>Map name already exists. Please enter a new one.</div>`)
-        $('#error-maps').slideDown(300)
+      if (!mapName || !mapCity) {
+        $('#error-message').addClass('map-name-error');
+        $('#error-message').find('p').html('Please enter a valid name and city.');
+        $('#error-message').slideDown(300);
+      } else if (mapNames.includes(mapName)) {
+        $('#error-message').addClass('map-name-error');
+        $('#error-message').find('p').html('Map name already exists. Please enter a new one.');
+        $('#error-message').slideDown(300);
       } else {
-        //If Map name and city is not empty, execute
-        if (mapName && mapCity) {
-          $mapInfoDiv.hide();
-          $('#error-maps').hide()
-          createNewMap($mapForm, $newMapContainer); // hide the map name submission container, show new map container
-        } else {
-          $('#error-maps').empty().prepend(`<i class="fas fa-exclamation-circle"></i><div>Please enter a name and/or city.</div>`)
-          $('#error-maps').slideDown(300)
-        }
+        $mapInfoDiv.hide();
+        $('#error-maps').hide()
+        createNewMap($mapForm, $newMapContainer); // hide the map name submission container, show new map container
       }
     })
   })
 
   $(document).mouseup(function(e){
-    let errorMaps = $("#error-maps");
+    let errorMaps = $("#error-message");
     // If the target of the click isn't the container
-    if(!errorMaps.is(e.target) && errorMaps.has(e.target).length === 0){
+    if (!errorMaps.is(e.target) && errorMaps.has(e.target).length === 0){
         errorMaps.hide();
-    }
+        errorMaps.removeClass();
+        errorMaps.addClass('error-message');
+    };
+
+    if (!$newMapContainer.is(e.target) && $newMapContainer.has(e.target).length === 0 && $('#marker-container').is(':empty')) {
+      cancelMap(event, $newMapContainer);
+    };
   });
 
   $cancelCreate.click(function(event) {
@@ -141,13 +144,17 @@ $(document).ready(function() {
   });
 
   $submitMapButton.click(function() {
-    if (!$('#marker-container').is(':empty')) {
+    if ($('#marker-container').is(':empty')) {
+      $('#error-message').addClass('new-map-error');
+      $('#error-message').find('p').html('Your map does not have any markers.');
+      $('#error-message').slideDown(300);
+    } else {
       submitMap($newMapContainer, $markerContainer);
     };
   });
 
   $cancelSubmit.click(function() {
-    cancelMap($newMapContainer);
+    cancelMap(event, $newMapContainer);
   });
 
   $registerForm.submit(function(event) {
@@ -156,17 +163,20 @@ $(document).ready(function() {
     const values = `email=${$registerInput.val()}`
 
     if ($registerInput.val().includes(' ') || !$registerInput.val().includes('@') || !$registerInput.val().includes('.com') || !$registerInput.val()) {
-      return;
-      //Either had whitespace, did not include the '@', did not have '.com or was an empty string
+      $('#error-message').addClass('register-error');
+      $('#error-message').find('p').html('Please enter a valid email.');
+      $('#error-message').slideDown(300);
     } else {
       $.get('/users/register/all', function (data) {
         if (data.find(obj => obj.email === $registerInput.val())) {
-          return;
-          //Email already taken, do nothing
+          $('#error-message').addClass('register-error');
+          $('#error-message').find('p').html('Email is already in database.');
+          $('#error-message').slideDown(300);
+        } else {
+          $.post('/users/register/', values);
+          $('#map').removeClass('greyscale');
+          $registerDiv.hide();
         }
-        $.post('/users/register/', values);
-        $('#map').removeClass('greyscale');
-        $registerDiv.hide();
       })
     }
 
