@@ -57,7 +57,7 @@ module.exports = (db) => {
   });
 
   //Get maps for a specific user
-  router.get('/user/:user', (req, res) => {
+  router.get('/user', (req, res) => {
     const userID = req.session.user_id;
 
     getUserMaps(userID, db)

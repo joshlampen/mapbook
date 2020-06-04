@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  loadMap(); // load empty map
+  loadMap(); // load empty google map
 
   const $createButton = $('#create');
   const $profileButton = $('#profile');
@@ -103,7 +103,7 @@ $(document).ready(function() {
     const mapName = $('#map-form input:nth-child(1)').val().trim();
     const mapCity = $('#map-form input:nth-child(2)').val().trim();
 
-    $.get('/api/maps/user/:user', function(data) {
+    $.get('/api/maps/user', function(data) {
       let mapNames = [];
       data.forEach(map => mapNames.push(map.name))
 
@@ -116,6 +116,7 @@ $(document).ready(function() {
         $('#error-message').find('p').html('Map name already exists. Please enter a new one.');
         $('#error-message').slideDown(300);
       } else {
+        loadMap();
         $mapInfoDiv.hide();
         $('#error-message').hide()
         createNewMap($mapForm, $newMapContainer);
@@ -165,7 +166,7 @@ $(document).ready(function() {
       $('#error-message').find('p').html('Please enter a valid email.');
       $('#error-message').slideDown(300);
     } else {
-      $.get('/users/register/all', function (data) {
+      $.get('/users/register/', function (data) {
         if (data.find(obj => obj.email === $registerInput.val())) {
           $('#error-message').addClass('register-error');
           $('#error-message').find('p').html('Email is already in database.');

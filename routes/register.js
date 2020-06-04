@@ -5,14 +5,14 @@ const cookieSession = require('cookie-session')
 
 module.exports = (db) => {
 
-router.get('/all', (req, res) => {
+router.get('/', (req, res) => {
   return db.query(`
   SELECT * FROM users
   `)
   .then(data => res.json(data.rows));
 });
 
-router.post("/" , (req, res) => {
+router.post('/' , (req, res) => {
   addUser(req.body, db)
     .then(user => {
       if (!user) {
