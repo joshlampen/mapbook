@@ -141,7 +141,7 @@ $(document).ready(function() {
   });
 
   $submitMapButton.click(function() {
-    if ($('#marker-container').is(':empty')) {
+    if ($('#marker-container').children().length === 0) {
       $('#error-message').addClass('new-map-error');
       $('#error-message').find('p').html('Your map does not have any markers.');
       $('#error-message').slideDown(300);
