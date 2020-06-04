@@ -64,7 +64,7 @@ const submitMap = function(newMapContainer, markerContainer) {
     });
 };
 
-const cancelMap = function(newMapContainer) {
+const cancelMap = function(event, newMapContainer) {
   event.preventDefault();
   const $markerContainer = newMapContainer.find('#marker-container');
   $markerContainer.empty();

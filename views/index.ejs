@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
 
     <!-- App CSS -->
+    <link rel="stylesheet" href="/styles/errors.css" type="text/css" />
     <link rel="stylesheet" href="/styles/enter-map-info.css" type="text/css" />
     <link rel="stylesheet" href="/styles/new-map.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -83,7 +84,9 @@
         <a href="">Cancel</a>
       </section>
 
-      <section id='error-maps'>
+      <section id='error-message' class='error-message'>
+        <i class="fas fa-exclamation-circle"></i>
+        <p></p> <!-- dynamically fills with error message when called -->
       </section>
 
       <section id="new-map">

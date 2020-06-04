@@ -85,28 +85,3 @@
   font-size: 12px;
   padding: 5px 0px 5px 0px;
 }
-
-#error-maps {
-  position: absolute;
-  top: 255px;
-  right: 20px;
-  width: 200px;
-  height: 40px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  background-color: rgba(228, 35, 67, 0.788);
-  font-size: $error-font;
-  color: white;
-
-  i {
-    margin-top: 0.5em;
-    font-size: 20px;
-  }
-
-  div {
-    margin-top: 0.5em;
-    width: 70%;
-    height: 100%;
-  }
-}
