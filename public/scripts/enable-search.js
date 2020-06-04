@@ -22,6 +22,7 @@ const enableSearch = function(searchBox, map) {
 
     // get the current bounds of the map
     const bounds = new google.maps.LatLngBounds();
+    console.log(places);
 
     // for each place that is found...
     places.forEach(function(place) {

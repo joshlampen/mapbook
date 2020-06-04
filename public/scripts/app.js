@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  loadMap(); // load empty map
+  loadMap(); // load empty google map
 
   const $createButton = $('#create');
   const $profileButton = $('#profile');
@@ -116,6 +116,7 @@ $(document).ready(function() {
         $('#error-message').find('p').html('Map name already exists. Please enter a new one.');
         $('#error-message').slideDown(300);
       } else {
+        loadMap();
         $mapInfoDiv.hide();
         $('#error-message').hide()
         createNewMap($mapForm, $newMapContainer);
