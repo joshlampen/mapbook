@@ -41,6 +41,14 @@ module.exports = (db) => {
         `, values);
   });
 
+  //Get maps for a specific user
+  router.get('/user', (req, res) => {
+    const userID = req.session.user_id;
+
+    getUserMaps(userID, db)
+    .then(data => res.json(data));
+  });
+
   router.get('/:mapName', (req, res) => { // gets id based on name and user_id
     const mapName = req.params.mapName;
     const userID = req.session.user_id;
@@ -54,14 +62,6 @@ module.exports = (db) => {
     AND user_id = $2;
     `, values)
       .then(data => res.json(data.rows));
-  });
-
-  //Get maps for a specific user
-  router.get('/user', (req, res) => {
-    const userID = req.session.user_id;
-
-    getUserMaps(userID, db)
-    .then(data => res.json(data));
   });
 
   return router;

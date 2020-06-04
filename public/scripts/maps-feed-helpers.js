@@ -43,12 +43,11 @@ const loadFavoritesFeed = function() {
 };
 
 const loadMyMaps = function() {
-  $.get('/api/maps/user/:user')
+  $.get('/api/maps/user/')
     .then(res => {
       if (!res) {
         return;
       };
-
       res.forEach(map => addMap(map));
     });
 };
