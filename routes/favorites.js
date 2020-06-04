@@ -2,7 +2,6 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-  //Get all the favorited maps - Works! Will need to modify once we have all the ids
   router.get('/', (req, res) => {
     const userID = req.session.user_id;
     const query = `
@@ -17,7 +16,6 @@ module.exports = (db) => {
       .catch(e => e);
   });
 
-  //Favorite a map -- Will develop this further once favorites functionality has been setup
   router.post('/', (req, res) => {
     const mapID = req.body.mapID;
     const userID = req.session.user_id;

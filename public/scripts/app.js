@@ -10,12 +10,12 @@ $(document).ready(function() {
   const $registerInput = $registerDiv.find('input');
   const $cancelRegister = $registerDiv.find('a');
 
-  const $mapInfoDiv = $('#enter-map-info');
-  const $mapForm = $mapInfoDiv.find('#map-form'); // where the user submits the map name
+  const $mapInfoDiv = $('#enter-map-info'); // for submitting map name and city
+  const $mapForm = $mapInfoDiv.find('#map-form');
   const $nameInput = $mapForm.find('input');
   const $cancelCreate = $mapInfoDiv.find('a');
 
-  const $newMapContainer = $('#new-map'); // container that appears following map name submission
+  const $newMapContainer = $('#new-map'); // appears following map name submission
   const $markerContainer = $newMapContainer.find('#marker-container');
   const $submitMapButton = $newMapContainer.find('#submit-map-button');
   const $cancelSubmit = $newMapContainer.find('#cancel-create');
@@ -31,7 +31,7 @@ $(document).ready(function() {
   $newMapContainer.hide();
   $('#error-message').hide();
 
-  loadMapsFeed(); // loads all maps in database to the feed
+  loadMapsFeed(); // loads all maps in the database to the feed
   enableMarkerAdding(); // enables adding of markers when a location is searched
 
   $profileButton.click(function(event) {
@@ -98,7 +98,7 @@ $(document).ready(function() {
       });
   });
 
-  $mapForm.submit(function(event) { // upon submission of map name...
+  $mapForm.submit(function(event) { // called upon submission of map name and city
     event.preventDefault();
     const mapName = $('#map-form input:nth-child(1)').val().trim();
     const mapCity = $('#map-form input:nth-child(2)').val().trim();
@@ -106,7 +106,6 @@ $(document).ready(function() {
     $.get('/api/maps/user/:user', function(data) {
       let mapNames = [];
       data.forEach(map => mapNames.push(map.name))
-      console.log(mapNames)
 
       if (!mapName || !mapCity) {
         $('#error-message').addClass('map-name-error');
@@ -118,29 +117,26 @@ $(document).ready(function() {
         $('#error-message').slideDown(300);
       } else {
         $mapInfoDiv.hide();
-        $('#error-maps').hide()
-        createNewMap($mapForm, $newMapContainer); // hide the map name submission container, show new map container
+        $('#error-message').hide()
+        createNewMap($mapForm, $newMapContainer);
       }
     })
   })
 
-  $(document).mouseup(function(e){
+  $(document).mouseup(function(e) {
     let errorMaps = $("#error-message");
-    // If the target of the click isn't the container
+    // If the target of the click isn't the container...
     if (!errorMaps.is(e.target) && errorMaps.has(e.target).length === 0){
         errorMaps.hide();
         errorMaps.removeClass();
         errorMaps.addClass('error-message');
-    };
-
-    if (!$newMapContainer.is(e.target) && $newMapContainer.has(e.target).length === 0 && $('#marker-container').is(':empty')) {
-      cancelMap(event, $newMapContainer);
     };
   });
 
   $cancelCreate.click(function(event) {
     event.preventDefault();
     $mapInfoDiv.hide();
+    $('#error-message').hide()
   });
 
   $submitMapButton.click(function() {
@@ -150,11 +146,13 @@ $(document).ready(function() {
       $('#error-message').slideDown(300);
     } else {
       submitMap($newMapContainer, $markerContainer);
+      $('#error-message').hide()
     };
   });
 
   $cancelSubmit.click(function() {
     cancelMap(event, $newMapContainer);
+    $('#error-message').hide()
   });
 
   $registerForm.submit(function(event) {
@@ -173,9 +171,10 @@ $(document).ready(function() {
           $('#error-message').find('p').html('Email is already in database.');
           $('#error-message').slideDown(300);
         } else {
-          $.post('/users/register/', values);
           $('#map').removeClass('greyscale');
           $registerDiv.hide();
+          $('#error-message').hide();
+          $.post('/users/register/', values);
         }
       })
     }
@@ -184,11 +183,13 @@ $(document).ready(function() {
 
   $cancelRegister.click(function(event) {
     event.preventDefault();
+    $('#map').removeClass('greyscale');
     $registerDiv.hide();
     $registerForm.find('input').val('');
+    $('#error-message').hide()
   });
 
-  $('#maps-container').on('click', '.favorite-map', function(event) {
+  $('#maps-container').on('click', '.favorite-map', function(event) { // called when heart icon is pressed
     event.preventDefault();
     const mapID = $(this).attr('id').slice(13);
     $.post('/')
@@ -207,6 +208,7 @@ $(document).ready(function() {
 
   $favorites.click(function(event) {
     event.preventDefault();
+    $('#dropdown').hide();
     $mapsFeedHeader.html('Favorites');
     $( "#maps-container" ).empty();
     loadFavoritesFeed();
@@ -214,6 +216,7 @@ $(document).ready(function() {
 
   $myMaps.click(function(event) {
     event.preventDefault();
+    $('#dropdown').hide();
     $mapsFeedHeader.html('My Maps');
     $( "#maps-container" ).empty();
     loadMyMaps();
@@ -223,6 +226,7 @@ $(document).ready(function() {
     $('#maps-container').on( 'click', '.map', function() {
       $('#map').removeClass('greyscale');
       $registerDiv.hide();
+      $registerForm.find('input').val('');
       $mapInfoDiv.hide();
       $dropdown.hide();
       const mapID = $(this).attr('id').slice(4);

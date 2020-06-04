@@ -15,11 +15,13 @@
 
 #new-map h2 {
   margin: 20px 0px 0px 0px;
-  font-family: $button-font;
+  font-family: sans-serif;
+  color: $deep-purple;
 }
 
 #new-map h4 {
   margin: 10px 0px 20px 0px;
+  color: $deep-purple;
 }
 
 #search {
@@ -78,6 +80,7 @@
 
 #new-map button {
   width: 60%;
+  padding-top: 2px;
   margin-top: 10px;
 }
 

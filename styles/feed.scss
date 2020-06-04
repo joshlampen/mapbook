@@ -8,8 +8,8 @@
   height: 92vh;
   border-right: solid 1px #BEBEBE;
   background-color: $background-white;
-  color: #003366;
   font-family: $button-font;
+  color: $deep-purple;
 
   #maps-container {
     display: flex;
@@ -28,19 +28,16 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    height: 75px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     padding-right: 1em;
     padding-left: 1em;
     border-bottom: solid 1px #BEBEBE;
-    color: #003366;
-    // transition: 0.5s;
   }
 
   .map:hover {
     background-color: #F7F7F7;
-    // background-color: #88a3fa;
-    // color: white;
   }
 
   .map .title-container {
@@ -55,23 +52,14 @@
 
    .map .title-container h5 {
     margin: 0.5em 0px 0px 0px;
+    color: grey;
+    font-weight: normal;
    }
 
   .favorite-map {
     color: #606060;
-    margin-top: 2px;
-    // height: 40px;
-    // width: 40px;
-    // // background-color: #ffebff;
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
-    // justify-content: center;
+    margin-top: 5px;
   }
-
-  // .favorite-map:active {
-  //   transform: translateY(4px);
-  // }
 
   .favorite-map i:hover {
     color: red;

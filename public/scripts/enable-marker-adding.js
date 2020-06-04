@@ -3,6 +3,7 @@ const enableMarkerAdding = function() {
     const autocomplete = new google.maps.places.Autocomplete(document.getElementById('search'));
 
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      $('#error-message').hide();
       const mapName = getMapName();
 
       $.get(`/api/maps/${mapName}`)

@@ -1,4 +1,4 @@
-// this script loads the initial empty map
+// this script loads the initial empty google map
 const loadMap = function() {
   let map, infoWindow;
 
@@ -7,7 +7,6 @@ const loadMap = function() {
     center: { lat: 43.654, lng: -79.383 },
     zoom: 10,
     disableDefaultUI: true // this removes all the in-map features e.g. zoom
-    // draggable: false --> this would disable the ability to drag on the map
   };
 
   map = new google.maps.Map(document.getElementById('map'), options);
@@ -37,4 +36,10 @@ const loadMap = function() {
   const searchBox = new google.maps.places.SearchBox(input);
 
   enableSearch(searchBox, map);
+};
+
+const handleLocationError = function(content, position) {
+  infoWindow.setPosition(position);
+  infoWindow.setContent(content);
+  infoWindow.open(map);
 };

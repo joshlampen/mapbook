@@ -9,7 +9,7 @@ const showMap = function(mapID) {
 
 const displayMarkers = markers => {
   const options = {
-    center: { lat: 43.654, lng: -79.383 },
+    center: { lat: 43.654, lng: -79.383 }, // sets downtown Toronto as default center
     zoom: 10,
     maxZoom: 15,
     disableDefaultUI: true
@@ -64,14 +64,13 @@ const displayMarkers = markers => {
           infoWindow.close(map, googleMarker);
         });
 
-        // infoWindow.open(map, googleMarker);
         locations.push(googleMarker);
         bounds.extend(googleMarker.position);
       };
     });
 
     locations.push(googleMarker);
-    bounds.extend(googleMarker.position); // Centers the map such that we can see all the markers
+    bounds.extend(googleMarker.position); // Centers the map such that all markers are visible
   });
 
   map.fitBounds(bounds);

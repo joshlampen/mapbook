@@ -12,7 +12,7 @@ const addMap = function(map) {
         favArray.push(favoritedMap.id);
       });
 
-      if (favArray.includes(map.id)) {
+      if (favArray.includes(map.id)) { // if the user has favorited the map, use a full heart icon
         html = `
           <div class="map" id="map-${map.id}">
             <div class="title-container">
@@ -21,7 +21,7 @@ const addMap = function(map) {
             </div>
             <a href="" class='favorite-map favorited' id="favorite-map-${map.id}"><i class="fas fa-heart"></i></a>
           </div>`;
-      } else {
+      } else { // if not, use an empty heart icon
         html = `
           <div class="map" id="map-${map.id}">
             <div class="title-container">

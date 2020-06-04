@@ -48,6 +48,7 @@ nav span a {
   background-color: $background-white;
   border: 2px solid $purple;
   margin: 0px;
+  font-family: sans-serif;
 }
 
 #dropdown li {
@@ -58,11 +59,11 @@ nav span a {
 }
 
 #dropdown li:hover {
-  background-color: grey;
+  background-color: #D8D8D8;
 }
 
 #dropdown a {
   width: 100%;
-  color: black;
+  color: $deep-purple;
   text-align: center;
 }

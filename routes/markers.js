@@ -23,7 +23,6 @@ module.exports = (db) => {
       });
   });
 
-  //Upon clicking a suggested address, save to db
   router.post('/', (req, res) => {
     const mapID = req.body.mapID;
     const markerName = req.body.markerName;

@@ -1,21 +1,7 @@
-//Fetch user info
-const findUser = (email, db) => {
-  const query = `
-  SELECT * FROM users
-  WHERE email = $1
-  `;
-
-  return db.query(query, [email])
-  .then(res => res.rows[0])
-  .catch(err => err);
-};
-
 const addUser = (user, db) => {
   const firstName = user.firstname;
   const lastName = user.lastname;
   const email = user.email;
-  // const password = user.password;
-  // const password = bcrypt.hashSync(user.password, 10);
 
   const query = `
   INSERT INTO users (email)
@@ -28,7 +14,6 @@ const addUser = (user, db) => {
   .catch(err => err);
 };
 
-//Add favourites
 const favorite = (userId, mapId) => {
   const query =`
   INSERT INTO favorites (user_id, map_id)
@@ -40,7 +25,6 @@ const favorite = (userId, mapId) => {
   .catch(err => err);
 };
 
-//getFavorites
 const getFavorites = (user_id) => {
   const query = `
   SELECT * FROM favorites
@@ -52,7 +36,6 @@ const getFavorites = (user_id) => {
   .catch(err => err);
 };
 
-//Get user's maps
 const getUserMaps = function(user_id, db) {
   const query = `
   SELECT * FROM maps
@@ -61,8 +44,8 @@ const getUserMaps = function(user_id, db) {
 
   return db.query(query, [user_id])
   .then(data => data.rows)
-  .catch(err => console.log('Error', err.stack));
+  .catch(err => err);
 };
 
 
-module.exports = { addUser, findUser, getUserMaps };
+module.exports = { addUser, getUserMaps };

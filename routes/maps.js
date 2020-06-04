@@ -1,10 +1,3 @@
-/*
- * All routes for Maps are defined here
- * Since this file is loaded in server.js into api/maps,
- *   these routes are mounted onto /maps
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
-
 const express = require('express');
 const router  = express.Router();
 const cookieSession = require('cookie-session');
@@ -13,8 +6,9 @@ const { getUserMaps } = require('../db/dbFunctions');
 module.exports = (db) => {
   router.get('/', (req, res) => {
     return db.query(`
-    SELECT *
+    SELECT maps.*
     FROM maps
+    WHERE id IN (SELECT map_id FROM markers)
     ORDER BY date_created;
     `)
       .then(data => res.json(data.rows));

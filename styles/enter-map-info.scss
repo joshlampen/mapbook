@@ -9,6 +9,7 @@
   right: 20px;
   width: 200px;
   background-color: $background-white;
+  color: $deep-purple;
   border: 2px solid $purple;
 }
 
@@ -18,8 +19,8 @@
 }
 
 #enter-map-info h2 {
-  font-family: $button-font;
-  margin: 10px 0px 10px 0px;
+  font-family: sans-serif;
+  margin: 20px 0px 20px 0px;
 }
 
 #map-form {
@@ -33,4 +34,5 @@
 
 #map-form button {
   margin-top: 10px;
+  padding-top: 2px;
 }
