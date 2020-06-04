@@ -52,3 +52,20 @@ const loadMyMaps = function() {
       res.forEach(map => addMap(map));
     });
 };
+
+
+const loggedName = function () {
+    $.get('/users/register/name')
+     .then(res => {
+      let html = `
+      <p>User logged in as: ${res[0].name}</p>
+      `
+      $('#logged-name').prepend(html)
+      $('#logged-name').show();
+     })
+     .catch(() => {
+      $('#logged-name').hide();
+     })
+  }
+
+
