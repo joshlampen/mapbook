@@ -32,6 +32,7 @@ $(document).ready(function() {
 
   loadMapsFeed(); // loads all maps in the database to the feed
   enableMarkerAdding(); // enables adding of markers when a location is searched
+  loggedName();
 
   $profileButton.click(function(event) {
     event.preventDefault();
@@ -177,7 +178,9 @@ $(document).ready(function() {
           $('#map').removeClass('greyscale');
           $registerDiv.hide();
           $('#error-message').hide();
-          $.post('/users/register/', values);
+          $.post('/users/register/', values)
+          .then(() => loggedName());
+
         }
       })
     }
@@ -243,4 +246,5 @@ $(document).ready(function() {
     $('#maps-container').empty();
     loadMapsFeed();
   })
+
 });
