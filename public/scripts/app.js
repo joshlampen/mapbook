@@ -32,7 +32,7 @@ $(document).ready(function() {
 
   loadMapsFeed(); // loads all maps in the database to the feed
   enableMarkerAdding(); // enables adding of markers when a location is searched
-  loggedName();
+  loggedName(); // load username if applicable
 
   $profileButton.click(function(event) {
     event.preventDefault();
@@ -179,12 +179,10 @@ $(document).ready(function() {
           $registerDiv.hide();
           $('#error-message').hide();
           $.post('/users/register/', values)
-          .then(() => loggedName());
-
-        }
-      })
-    }
-
+            .then(() => loggedName());
+        };
+      });
+    };
   });
 
   $cancelRegister.click(function(event) {

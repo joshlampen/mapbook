@@ -5,7 +5,7 @@ const addUser = (user, db) => {
   const query = `
   INSERT INTO users (name, email)
   VALUES ($1, $2)
-  RETURNING *
+  RETURNING *;
   `;
 
   return db.query(query, [name, email])
@@ -17,6 +17,7 @@ const getUserMaps = function(user_id, db) {
   const query = `
   SELECT * FROM maps
   WHERE user_id = $1
+  AND id IN (SELECT map_id FROM markers);
   `;
 
   return db.query(query, [user_id])

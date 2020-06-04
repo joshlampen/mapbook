@@ -38,7 +38,7 @@ module.exports = (db) => {
     return db.query(`
     DELETE FROM maps
     WHERE id = $1 AND user_id = $2;
-        `, values);
+    `, values);
   });
 
   //Get maps for a specific user

@@ -10,7 +10,7 @@ module.exports = (db) => {
     SELECT *
     FROM markers
     WHERE map_id = $1
-    ORDER BY date_created DESC
+    ORDER BY date_created DESC;
     `
     , values)
       .then(data => {

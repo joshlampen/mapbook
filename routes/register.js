@@ -7,17 +7,18 @@ module.exports = (db) => {
 
 router.get('/', (req, res) => {
   return db.query(`
-  SELECT * FROM users
+  SELECT * FROM users;
   `)
   .then(data => res.json(data.rows));
 });
 
 router.get('/name', (req, res) => {
+  const userID = req.session.user_id
 
   return db.query(`
   SELECT name FROM users
-  WHERE id = $1
-  `, [req.session.user_id])
+  WHERE id = $1;
+  `, [userID])
   .then(user => res.json(user.rows))
 })
 
@@ -35,7 +36,3 @@ router.post('/' , (req, res) => {
 
   return router;
 };
-
-
-
-
