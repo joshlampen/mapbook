@@ -255,5 +255,4 @@ $(document).ready(function() {
     $('#maps-container').empty();
     loadMapsFeed();
   })
-
 });
