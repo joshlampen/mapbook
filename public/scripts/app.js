@@ -212,6 +212,15 @@ $(document).ready(function() {
       })
   });
 
+  $('#maps-container').on('click', '.edit-map', function(event) {
+    event.preventDefault();
+    if ($newMapContainer.is(':visible')) {
+      $newMapContainer.hide();
+    }
+    const mapID = $(this).attr('id').slice(9);
+    editMap(mapID, $newMapContainer);
+  })
+
   $favorites.click(function(event) {
     event.preventDefault();
     $('#dropdown').hide();
@@ -246,5 +255,4 @@ $(document).ready(function() {
     $('#maps-container').empty();
     loadMapsFeed();
   })
-
 });
