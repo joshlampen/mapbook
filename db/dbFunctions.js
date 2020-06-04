@@ -1,39 +1,16 @@
 const addUser = (user, db) => {
-  const firstName = user.firstname;
-  const lastName = user.lastname;
+  const name = user.name;
   const email = user.email;
 
   const query = `
-  INSERT INTO users (email)
-  VALUES ($1)
+  INSERT INTO users (name, email)
+  VALUES ($1, $2)
   RETURNING *
   `;
 
-  return db.query(query, [email])
-  .then(res => res.rows[0])
-  .catch(err => err);
-};
-
-const favorite = (userId, mapId) => {
-  const query =`
-  INSERT INTO favorites (user_id, map_id)
-  VALUES ($1, $2)
-  `
-
-  return db.query(query, [userId, mapId])
-  .then()
-  .catch(err => err);
-};
-
-const getFavorites = (user_id) => {
-  const query = `
-  SELECT * FROM favorites
-  WHERE user_id = $1
-  `;
-
-  return db.query(query, [user_id])
-  .then(res => res.rows)
-  .catch(err => err);
+  return db.query(query, [name, email])
+    .then(res => res.rows[0])
+    .catch(err => err);
 };
 
 const getUserMaps = function(user_id, db) {
@@ -43,8 +20,8 @@ const getUserMaps = function(user_id, db) {
   `;
 
   return db.query(query, [user_id])
-  .then(data => data.rows)
-  .catch(err => err);
+    .then(data => data.rows)
+    .catch(err => err);
 };
 
 
