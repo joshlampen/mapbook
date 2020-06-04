@@ -40,28 +40,40 @@
     background-color: #F7F7F7;
   }
 
-  .map .title-container {
+  .title-container {
    display: flex;
    flex-direction: column;
    margin: 10px 0px 10px 0px;
   }
 
-  .map .title-container h3 {
+  .title-container h3 {
     margin: 0px;
    }
 
-   .map .title-container h5 {
-    margin: 0.5em 0px 0px 0px;
-    color: grey;
-    font-weight: normal;
-   }
+  .title-container h5 {
+  margin: 0.5em 0px 0px 0px;
+  color: grey;
+  font-weight: normal;
+  }
 
-  .favorite-map {
-    color: #606060;
+  .icon-container {
     margin-top: 5px;
   }
 
-  .favorite-map i:hover {
+  .edit-map {
+    color: #606060;
+    margin-right: 10px;
+  }
+
+  .edit-map:hover {
+    color: $purple;
+  }
+
+  .favorite-map {
+    color: #606060;
+  }
+
+  .favorite-map:hover {
     color: red;
   }
 

@@ -6,7 +6,7 @@ const { getUserMaps } = require('../db/dbFunctions');
 module.exports = (db) => {
   router.get('/', (req, res) => {
     return db.query(`
-    SELECT maps.*
+    SELECT DISTINCT maps.*
     FROM maps
     WHERE id IN (SELECT map_id FROM markers)
     ORDER BY date_created;
@@ -59,8 +59,7 @@ module.exports = (db) => {
     SELECT *
     FROM maps
     WHERE name = $1
-    AND user_id = $2
-    ORDER BY date_created;
+    AND user_id = $2;
     `, values)
       .then(data => res.json(data.rows));
   });
