@@ -59,7 +59,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.post("/", (req, res) => {
+app.post("/", (req, res) => { // /get/user/
   const userID = req.session.user_id;
   res.json(userID);
 });

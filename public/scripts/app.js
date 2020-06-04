@@ -103,7 +103,7 @@ $(document).ready(function() {
     const mapName = $('#map-form input:nth-child(1)').val().trim();
     const mapCity = $('#map-form input:nth-child(2)').val().trim();
 
-    $.get('/api/maps/user/:user', function(data) {
+    $.get('/api/maps/user', function(data) {
       let mapNames = [];
       data.forEach(map => mapNames.push(map.name))
 
@@ -166,7 +166,7 @@ $(document).ready(function() {
       $('#error-message').find('p').html('Please enter a valid email.');
       $('#error-message').slideDown(300);
     } else {
-      $.get('/users/register/all', function (data) {
+      $.get('/users/register/', function (data) {
         if (data.find(obj => obj.email === $registerInput.val())) {
           $('#error-message').addClass('register-error');
           $('#error-message').find('p').html('Email is already in database.');
