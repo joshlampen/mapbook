@@ -35,7 +35,7 @@ const addMap = function(map) {
                 ${icons}
               </div>
             </div>`;
-          
+
           $('#maps-container').prepend(html);
           $(`#map-${map.id}`).trigger('click');
         });
@@ -53,7 +53,6 @@ const loadMyMaps = function() {
       if (!res) {
         return;
       };
-
       res.forEach(map => addMap(map));
     });
 };
