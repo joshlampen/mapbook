@@ -27,10 +27,10 @@ const displayMarkers = markers => {
     });
 
     const service = new google.maps.places.PlacesService(map);
-
     const request = {
-      query: marker.name,
-      fields: ['formatted_address']
+      query: `${marker.name}`,
+      fields: ['formatted_address'],
+      locationBias: googleMarker.position
     };
 
     service.findPlaceFromQuery(request, function(results, status) {
