@@ -1,5 +1,3 @@
-=========
-
 ## MapBook
 
 MapBook is a social media application where users can create, edit, 'like', and share custom maps of their favorite places around the world. It leverages the Google Maps API to enable map interaction, and is built with PostgreSQL on the back-end and HTML, CSS/SASS, JS, jQuery and Ajax on the front-end.
